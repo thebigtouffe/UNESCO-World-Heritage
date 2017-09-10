@@ -9,8 +9,9 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		print("Populating country database")
 		country_database = open('country_codes.csv', 'rt', encoding='utf8')
-		countries = csv.reader(country_database, delimiter=',', quotechar='|')
+		countries = csv.reader(country_database, delimiter=',', quotechar='"')
 		for country in countries:
+			print(country[5])
 			try:
 				Country.objects.create(iso=country[2],name=country[5],name_fr=country[4])
 			except Exception as e:

@@ -27,7 +27,7 @@ class Site(models.Model):
 	number = models.IntegerField(primary_key=True)
 	name = models.CharField(max_length=200, null=True, blank=True)
 	name_fr = models.CharField(max_length=200, null=True, blank=True)
-	country = models.ManyToManyField(Country, null=True, blank=True)
+	country = models.ManyToManyField(Country)
 	zone = models.ForeignKey(Zone, on_delete=models.CASCADE, null=True, blank=True)
 	criteria = models.ManyToManyField(Criterion)
 	year_inscribed = models.IntegerField(default=0)
