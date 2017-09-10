@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Patrimoine mondial</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="africa">Afrique</string>
+    <string name="arab_states">États arabes</string>
+    <string name="asia_pacific">Asie Pacifique</string>
+    <string name="category">Catégorie</string>
+    <string name="cultural">Culturel</string>
+    <string name="europe_north_america">Europe et Amérique du Nord</string>
+    <string name="latin_america">Amérique latine et Caraïbes</string>
+    <string name="mixed">Mixte</string>
+    <string name="natural">Naturel</string>
+    <string name="region">Zone géographique</string>
+    <string name="navigation_drawer_close">Fermer le panneau de navigation</string>
+    <string name="navigation_drawer_open">Ouvrir le panneau de navigation</string>
+    <string name="seen_sites">Sites visités</string>
+    <string name="liked_sites">Sites appréciés</string>
+</resources>

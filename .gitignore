@@ -53,3 +53,36 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+
+# Django
+*.egg-info
+*.pot
+*.py[co]
+.tox/
+__pycache__
+MANIFEST
+dist/
+docs/_build/
+docs/locale/
+node_modules/
+tests/coverage_html/
+tests/.coverage
+build/
+tests/report/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
