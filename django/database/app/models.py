@@ -9,11 +9,11 @@ class Zone(models.Model):
 class Country(models.Model):
 	name = models.CharField(max_length=200)
 	name_fr = models.CharField(max_length=200)
-	iso = models.CharField(max_length=5, primary_key=True)
+	iso = models.CharField(max_length=5, unique=True)
 
 
 class Category(models.Model):
-	name = models.CharField(primary_key=True, max_length=200)
+	name = models.CharField(unique=True, max_length=200)
 	name_fr = models.CharField(max_length=200)
 
 
@@ -27,6 +27,7 @@ class Site(models.Model):
 	number = models.IntegerField(primary_key=True)
 	name = models.CharField(max_length=200, null=True, blank=True)
 	name_fr = models.CharField(max_length=200, null=True, blank=True)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
 	country = models.ManyToManyField(Country)
 	zone = models.ForeignKey(Zone, on_delete=models.CASCADE, null=True, blank=True)
 	criteria = models.ManyToManyField(Criterion)

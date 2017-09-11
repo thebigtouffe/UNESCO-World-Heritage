@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_likes"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/liked_sites" />
+        <item
+            android:id="@+id/nav_seen"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/seen_sites" />
+    </group>
+
+    <item android:title="@string/category">
+        <menu>
+            <item
+                android:id="@+id/nav_cultural"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="@string/cultural" />
+            <item
+                android:id="@+id/nav_natural"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="@string/natural" />
+            <item
+                android:id="@+id/nav_mixed"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="@string/mixed" />
+        </menu>
+    </item>
+
+    <item android:title="@string/region">
+        <menu>
+            <item
+                android:id="@+id/nav_africa"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/africa" />
+            <item
+                android:id="@+id/nav_arab"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/arab_states" />
+            <item
+                android:id="@+id/nav_asia_pacific"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/asia_pacific" />
+            <item
+                android:id="@+id/nav_europe_north_america"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/europe_north_america" />
+            <item
+                android:id="@+id/nav_latin_america"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/latin_america" />
+        </menu>
+    </item>
+
+</menu>

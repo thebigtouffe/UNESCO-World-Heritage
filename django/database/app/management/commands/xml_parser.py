@@ -30,7 +30,6 @@ class Command(BaseCommand):
             s.endangered = site.xpath("danger")[0].text is not None
 
             criteria = site.xpath("criteria_txt")[0].text.replace("(","").split(")")[:-1]
-            print(criteria)
             for criterion in criteria:
                 s.criteria.add(Criterion.objects.get(number=roman.fromRoman(criterion.upper())))
 
