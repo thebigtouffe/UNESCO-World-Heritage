@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
@@ -17,6 +18,11 @@ import fr.thebigtouffe.unescoworldheritage.UNESCO.Database;
 public class siteView extends AppCompatActivity {
 
     private Database unescoDB;
+    private String cssStyle = "<style>" +
+            "body {" +
+            "text-align: justify;" +
+            "padding: 0.6em;}" +
+            "</style>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +49,10 @@ public class siteView extends AppCompatActivity {
         CollapsingToolbarLayout toolbarTitle = (CollapsingToolbarLayout) findViewById(R.id.toolbar_title);
         toolbarTitle.setTitle(site.getName());
 
+        String customHtml = "<html><body>" + cssStyle;
+        customHtml += site.getLong_description();
+        customHtml += "</body></html>";
+        WebView webView = (WebView) findViewById(R.id.description_webview);
+        webView.loadData(customHtml, "text/html", "UTF-8");
     }
 }

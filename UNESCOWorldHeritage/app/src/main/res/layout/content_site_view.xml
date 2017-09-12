@@ -8,10 +8,26 @@
     tools:context="fr.thebigtouffe.unescoworldheritage.siteView"
     tools:showIn="@layout/activity_site_view">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/description_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textSize="18sp"
+            android:text="@string/description" />
+
+        <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/description_webview"
+            android:layout_below="@+id/description_title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+    </RelativeLayout>
+
+
 
 </android.support.v4.widget.NestedScrollView>

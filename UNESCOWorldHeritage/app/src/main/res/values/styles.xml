@@ -19,7 +19,13 @@
 
     <style name="TextAppearance.ExpandedTitle"
         parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">21sp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="TextAppearance.CollapsedTitle"
+        parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
 

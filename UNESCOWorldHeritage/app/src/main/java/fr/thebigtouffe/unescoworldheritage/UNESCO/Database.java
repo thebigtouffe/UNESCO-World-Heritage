@@ -2,6 +2,7 @@ package fr.thebigtouffe.unescoworldheritage.UNESCO;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +12,8 @@ import android.util.Log;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class Database extends SQLiteAssetHelper {
+
+    private Boolean isFrench = Locale.getDefault().getLanguage().equals("fr");
 
     private static final String DATABASE_NAME = "unesco.db";
     private static final int DATABASE_VERSION = 2;
@@ -35,12 +38,15 @@ public class Database extends SQLiteAssetHelper {
         while (c.moveToNext()) {
             Integer id = c.getInt(c.getColumnIndex("id"));
             String name = c.getString(c.getColumnIndex("name"));
-            String name_fr = c.getString(c.getColumnIndex("name_fr"));
+
+            if (isFrench)
+                name = c.getString(c.getColumnIndex("name_fr"));
+
             Integer count = c.getInt(c.getColumnIndex("count"));
 
             // Exclude countries without any registered site
             if (count > 0) {
-                Country country = new Country(id, name, name_fr);
+                Country country = new Country(id, name);
                 countries.add(country);
             }
         }
@@ -149,12 +155,15 @@ public class Database extends SQLiteAssetHelper {
         while (c.moveToNext()) {
             int number = c.getInt(c.getColumnIndex("number"));
             String name = c.getString(c.getColumnIndex("name"));
-            String name_fr = c.getString(c.getColumnIndex("name_fr"));
+
+            if (isFrench)
+                name = c.getString(c.getColumnIndex("name_fr"));
+
             Integer yearInscribed = c.getInt(c.getColumnIndex("year_inscribed"));
 
-            Site site = new Site(number, name, name_fr, null, null, null,
+            Site site = new Site(number, name, null, null, null,
                                  null, null, yearInscribed,  null, null, null, null,
-                                 null, null, null, null, null, null);
+                                 null, null);
 
             sites.add(site);
         }
@@ -170,17 +179,13 @@ public class Database extends SQLiteAssetHelper {
         Double latitude = 0.0;
         Double longitude = 0.0;
         String long_description = new String("");
-        String long_description_fr = new String("");
         String short_description = new String("");
-        String short_description_fr = new String("");
         String justification = new String("");
-        String justification_fr = new String("");
         String historical_description = new String("");
-        String historical_description_fr = new String("");
 
-        Category category = new Category(null, null);
+        Category category = new Category(null);
         ArrayList<Country> countries = new ArrayList<>();
-        Zone zone = new Zone(null, null);
+        Zone zone = new Zone(null);
         ArrayList<Criterion> criteria = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
@@ -189,7 +194,6 @@ public class Database extends SQLiteAssetHelper {
         Cursor c = db.rawQuery(querySite, new String[] {""+id});
         while (c.moveToNext()) {
             name = c.getString(c.getColumnIndex("name"));
-            name_fr = c.getString(c.getColumnIndex("name_fr"));
             yearInscribed = c.getInt(c.getColumnIndex("year_inscribed"));
             endangered = c.getInt(c.getColumnIndex("endangered")) > 0;
             latitude = c.getDouble(c.getColumnIndex("latitude"));
@@ -199,10 +203,14 @@ public class Database extends SQLiteAssetHelper {
             long_description = c.getString(c.getColumnIndex("long_description"));
             historical_description = c.getString(c.getColumnIndex("historical_description"));
             justification = c.getString(c.getColumnIndex("justification"));
-            short_description_fr = c.getString(c.getColumnIndex("short_description_fr"));
-            long_description_fr = c.getString(c.getColumnIndex("long_description_fr"));
-            historical_description_fr = c.getString(c.getColumnIndex("historical_description_fr"));
-            justification_fr = c.getString(c.getColumnIndex("justification_fr"));
+
+            if (isFrench) {
+                name = c.getString(c.getColumnIndex("name_fr"));
+                short_description = c.getString(c.getColumnIndex("short_description_fr"));
+                long_description = c.getString(c.getColumnIndex("long_description_fr"));
+                historical_description = c.getString(c.getColumnIndex("historical_description_fr"));
+                justification = c.getString(c.getColumnIndex("justification_fr"));
+            }
         }
 
         String categoryQuery = "SELECT app_category.name, app_category.name_fr " +
@@ -211,8 +219,11 @@ public class Database extends SQLiteAssetHelper {
         Cursor c2 = db.rawQuery(categoryQuery, new String[] {""+id});
         while (c2.moveToNext()) {
             String category_name = c2.getString(c2.getColumnIndex("name"));
-            String category_name_fr = c2.getString(c2.getColumnIndex("name_fr"));
-            category = new Category(category_name, category_name_fr);
+
+            if (isFrench)
+                category_name = c2.getString(c2.getColumnIndex("name_fr"));
+
+            category = new Category(category_name);
         }
 
         String zoneQuery = "SELECT app_zone.name, app_zone.name_fr " +
@@ -221,8 +232,10 @@ public class Database extends SQLiteAssetHelper {
         Cursor c3 = db.rawQuery(zoneQuery, new String[] {""+id});
         while (c3.moveToNext()) {
             String zone_name = c3.getString(c3.getColumnIndex("name"));
-            String zone_name_fr = c3.getString(c3.getColumnIndex("name_fr"));
-            zone = new Zone(zone_name, zone_name_fr);
+            if (isFrench)
+                zone_name = c3.getString(c3.getColumnIndex("name_fr"));
+
+            zone = new Zone(zone_name);
         }
 
         String countriesQuery = "SELECT app_country.id, name, name_fr " +
@@ -232,8 +245,11 @@ public class Database extends SQLiteAssetHelper {
         while (c4.moveToNext()) {
             Integer country_id = c4.getInt(c4.getColumnIndex("id"));
             String country_name = c4.getString(c4.getColumnIndex("name"));
-            String country_name_fr = c4.getString(c4.getColumnIndex("name_fr"));
-            countries.add(new Country(country_id, country_name, country_name_fr));
+
+            if (isFrench)
+                country_name = c4.getString(c4.getColumnIndex("name_fr"));
+
+            countries.add(new Country(country_id, country_name));
         }
 
         String criteriaQuery = "SELECT app_criterion.number, description, description_fr " +
@@ -243,18 +259,21 @@ public class Database extends SQLiteAssetHelper {
         while (c5.moveToNext()) {
             Integer criterion_id = c5.getInt(c5.getColumnIndex("number"));
             String criterion_description = c5.getString(c5.getColumnIndex("description"));
-            String criterion_description_fr = c5.getString(c5.getColumnIndex("description_fr"));
-            criteria.add(new Criterion(criterion_id, criterion_description, criterion_description_fr));
+
+            if (isFrench)
+                criterion_description = c5.getString(c5.getColumnIndex("description_fr"));
+
+            criteria.add(new Criterion(criterion_id, criterion_description));
         }
 
 
-        Site site = new Site(id, name, name_fr, category, zone, countries,
+        Site site = new Site(id, name, category, zone, countries,
                 criteria, endangered, yearInscribed,
                 latitude, longitude,
-                long_description, long_description_fr,
-                short_description, short_description_fr,
-                justification, justification_fr,
-                historical_description, historical_description_fr);
+                long_description,
+                short_description,
+                justification,
+                historical_description);
 
         return site;
     }

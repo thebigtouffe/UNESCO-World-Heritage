@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             app:title="Title"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.CollapsedTitle"
             app:expandedTitleTextAppearance="@style/TextAppearance.ExpandedTitle"
             app:maxLines="3">
 
