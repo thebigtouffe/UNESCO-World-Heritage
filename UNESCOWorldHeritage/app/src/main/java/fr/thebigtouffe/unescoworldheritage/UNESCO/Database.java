@@ -1,8 +1,7 @@
 package fr.thebigtouffe.unescoworldheritage.UNESCO;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -16,27 +15,84 @@ public class Database extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "unesco.db";
     private static final int DATABASE_VERSION = 2;
 
-    private Map<String, Country> countries = new HashMap<>();
+    private ArrayList<Country> countries = new ArrayList<>();
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public void getCountries() {
+    public ArrayList<Country> getCountries(String option) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * from app_country", null);
+
+        String query = "SELECT app_country.id, app_country.name, app_country.name_fr, count(site_id) AS count " +
+                "FROM app_country JOIN app_site_country ON app_country.id=country_id " +
+                "JOIN app_site ON app_site.number = app_site_country.site_id ";
+
+        query = addOptionsToQuery(query, option);
+        query += " GROUP BY app_country.name";
+        Cursor c = db.rawQuery(query, null);
 
         while (c.moveToNext()) {
             Integer id = c.getInt(c.getColumnIndex("id"));
             String name = c.getString(c.getColumnIndex("name"));
             String name_fr = c.getString(c.getColumnIndex("name_fr"));
-            String iso = c.getString(c.getColumnIndex("iso"));
+            Integer count = c.getInt(c.getColumnIndex("count"));
 
-            Country country = new Country(name, name_fr, iso);
-
-            countries.put(id.toString(), country);
+            // Exclude countries without any registered site
+            if (count > 0) {
+                Country country = new Country(id, name, name_fr);
+                countries.add(country);
+            }
         }
         c.close();
+
+        setNumberSitesByCountry("Cultural");
+        setNumberSitesByCountry("Natural");
+        setNumberSitesByCountry("Mixed");
+
+        return countries;
+    }
+
+    private void setNumberSitesByCountry(String category) {
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT country_id, count(*) AS count FROM app_site " +
+                "JOIN app_site_country ON site_id=number " +
+                "JOIN app_country ON country_id = app_country.id " +
+                "JOIN app_category ON app_category.id = app_site.category_id " +
+                "WHERE app_category.name = ? " +
+                "GROUP BY country_id, category_id";
+        Cursor c = db.rawQuery(query, new String[] {category});
+
+        while (c.moveToNext()) {
+            Integer countryId = c.getInt(c.getColumnIndex("country_id"));
+            Integer count = c.getInt(c.getColumnIndex("count"));
+
+            Country country = getCountryById(countryId);
+            if (country != null) {
+                if (category.equals("Cultural"))
+                    country.setNumberCulturalSites(count);
+                if (category.equals("Natural"))
+                    country.setNumberNaturalSites(count);
+                if (category.equals("Mixed"))
+                    country.setNumberMixedSites(count);
+            }
+        }
+        c.close();
+    }
+
+    public Country getCountryById(int id) {
+        if (countries.size() < 1) {
+            getCountries("default");
+        }
+
+        for(int i=0; i < countries.size();i++) {
+            Country country = countries.get(i);
+            if (country.getId() == id) {
+                return country;
+            }
+        }
+        return null;
     }
 
     public Integer getZoneIdByName(String name) {
@@ -52,30 +108,9 @@ public class Database extends SQLiteAssetHelper {
         return id;
     }
 
-    public Integer getCategoryIdByName(String name) {
-        Integer id = -1;
-
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * from app_category WHERE name = ?", new String[] {name});
-
-        if (c.moveToFirst()) {
-            id = c.getInt(c.getColumnIndex("id"));
-        }
-        c.close();
-        return id;
-    }
-
-    public ArrayList<Site> getAllSites(String option) {
-        ArrayList<Site> sites = new ArrayList<Site>();
-
-        getCountries();
-
-        SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT number, name, name_fr, year_inscribed, country_id " +
-                "FROM app_site JOIN app_site_country ON number = site_id ";
+    private String addOptionsToQuery(String query, String option) {
 
         // Zone option
-
         if (option.equals("africa")) {
             query += "WHERE zone_id =" + getZoneIdByName("Africa");
         }
@@ -92,30 +127,32 @@ public class Database extends SQLiteAssetHelper {
             query += "WHERE zone_id =" + getZoneIdByName("Latin America and the Caribbean");
         }
 
-        // Category option
+        return query;
+    }
 
-        else if (option.equals("cultural")) {
-            query += "WHERE category_id =" + getCategoryIdByName("Cultural");
-        } else if (option.equals("mixed")) {
-            query += "WHERE category_id =" + getCategoryIdByName("Mixed");
-        } else if (option.equals("natural")) {
-            query += "WHERE category_id =" + getCategoryIdByName("Natural");
-        }
 
-        // Group sites by country
-        query += " ORDER BY country_id";
+    public ArrayList<Site> getSitesByCountry(Country country) {
+        ArrayList<Site> sites = new ArrayList<Site>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT number, name, name_fr, year_inscribed " +
+                "FROM app_site JOIN app_site_country ON number = site_id " +
+                "WHERE country_id = ? ";
+
+
+        // Group sites by names
+        query += "ORDER BY name";
+        Log.d("query", query);
 
         // Retrieve results
-        Cursor c = db.rawQuery(query, null);
+        Cursor c = db.rawQuery(query, new String[] {""+country.getId()});
         while (c.moveToNext()) {
             int number = c.getInt(c.getColumnIndex("number"));
             String name = c.getString(c.getColumnIndex("name"));
             String name_fr = c.getString(c.getColumnIndex("name_fr"));
             Integer yearInscribed = c.getInt(c.getColumnIndex("year_inscribed"));
-            Integer countryId = c.getInt(c.getColumnIndex("country_id"));
-            Country country = countries.get(countryId.toString());
 
-            Site site = new Site(number, name, name_fr, null, country,
+            Site site = new Site(number, name, name_fr, null, null, null,
                                  null, null, yearInscribed,  null, null, null, null,
                                  null, null, null, null, null, null);
 
@@ -123,6 +160,103 @@ public class Database extends SQLiteAssetHelper {
         }
         c.close();
         return sites;
+    }
+
+    public Site getSiteById(int id) {
+        String name = new String("");
+        String name_fr = new String("");
+        Integer yearInscribed = 0;
+        Boolean endangered = false;
+        Double latitude = 0.0;
+        Double longitude = 0.0;
+        String long_description = new String("");
+        String long_description_fr = new String("");
+        String short_description = new String("");
+        String short_description_fr = new String("");
+        String justification = new String("");
+        String justification_fr = new String("");
+        String historical_description = new String("");
+        String historical_description_fr = new String("");
+
+        Category category = new Category(null, null);
+        ArrayList<Country> countries = new ArrayList<>();
+        Zone zone = new Zone(null, null);
+        ArrayList<Criterion> criteria = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String querySite = "SELECT * FROM app_site WHERE number = ?";
+        Cursor c = db.rawQuery(querySite, new String[] {""+id});
+        while (c.moveToNext()) {
+            name = c.getString(c.getColumnIndex("name"));
+            name_fr = c.getString(c.getColumnIndex("name_fr"));
+            yearInscribed = c.getInt(c.getColumnIndex("year_inscribed"));
+            endangered = c.getInt(c.getColumnIndex("endangered")) > 0;
+            latitude = c.getDouble(c.getColumnIndex("latitude"));
+            longitude = c.getDouble(c.getColumnIndex("longitude"));
+
+            short_description = c.getString(c.getColumnIndex("short_description"));
+            long_description = c.getString(c.getColumnIndex("long_description"));
+            historical_description = c.getString(c.getColumnIndex("historical_description"));
+            justification = c.getString(c.getColumnIndex("justification"));
+            short_description_fr = c.getString(c.getColumnIndex("short_description_fr"));
+            long_description_fr = c.getString(c.getColumnIndex("long_description_fr"));
+            historical_description_fr = c.getString(c.getColumnIndex("historical_description_fr"));
+            justification_fr = c.getString(c.getColumnIndex("justification_fr"));
+        }
+
+        String categoryQuery = "SELECT app_category.name, app_category.name_fr " +
+                "FROM app_category JOIN app_site ON app_site.category_id = app_category.id " +
+                "WHERE app_site.number = ?";
+        Cursor c2 = db.rawQuery(categoryQuery, new String[] {""+id});
+        while (c2.moveToNext()) {
+            String category_name = c2.getString(c2.getColumnIndex("name"));
+            String category_name_fr = c2.getString(c2.getColumnIndex("name_fr"));
+            category = new Category(category_name, category_name_fr);
+        }
+
+        String zoneQuery = "SELECT app_zone.name, app_zone.name_fr " +
+                "FROM app_zone JOIN app_site ON app_site.zone_id = app_zone.id " +
+                "WHERE app_site.number = ?";
+        Cursor c3 = db.rawQuery(zoneQuery, new String[] {""+id});
+        while (c3.moveToNext()) {
+            String zone_name = c3.getString(c3.getColumnIndex("name"));
+            String zone_name_fr = c3.getString(c3.getColumnIndex("name_fr"));
+            zone = new Zone(zone_name, zone_name_fr);
+        }
+
+        String countriesQuery = "SELECT app_country.id, name, name_fr " +
+                "FROM app_country JOIN app_site_country ON country_id=app_country.id " +
+                "WHERE site_id = ?";
+        Cursor c4 = db.rawQuery(countriesQuery, new String[] {""+id});
+        while (c4.moveToNext()) {
+            Integer country_id = c4.getInt(c4.getColumnIndex("id"));
+            String country_name = c4.getString(c4.getColumnIndex("name"));
+            String country_name_fr = c4.getString(c4.getColumnIndex("name_fr"));
+            countries.add(new Country(country_id, country_name, country_name_fr));
+        }
+
+        String criteriaQuery = "SELECT app_criterion.number, description, description_fr " +
+                "FROM app_criterion JOIN app_site_criteria ON criterion_id=app_criterion.number " +
+                "WHERE site_id = ?";
+        Cursor c5 = db.rawQuery(criteriaQuery, new String[] {""+id});
+        while (c5.moveToNext()) {
+            Integer criterion_id = c5.getInt(c5.getColumnIndex("number"));
+            String criterion_description = c5.getString(c5.getColumnIndex("description"));
+            String criterion_description_fr = c5.getString(c5.getColumnIndex("description_fr"));
+            criteria.add(new Criterion(criterion_id, criterion_description, criterion_description_fr));
+        }
+
+
+        Site site = new Site(id, name, name_fr, category, zone, countries,
+                criteria, endangered, yearInscribed,
+                latitude, longitude,
+                long_description, long_description_fr,
+                short_description, short_description_fr,
+                justification, justification_fr,
+                historical_description, historical_description_fr);
+
+        return site;
     }
 
 }

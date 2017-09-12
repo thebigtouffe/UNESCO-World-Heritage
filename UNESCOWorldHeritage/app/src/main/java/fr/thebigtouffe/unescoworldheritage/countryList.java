@@ -1,8 +1,9 @@
 package fr.thebigtouffe.unescoworldheritage;
 
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Site;
+import fr.thebigtouffe.unescoworldheritage.UNESCO.Country;
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Database;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,21 +16,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class List extends AppCompatActivity
+public class countryList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Database unescoDB;
-    private ListView mListSites;
+    private ListView mListCountries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_country_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,24 +52,28 @@ public class List extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        populateSiteListView("default");
+        populateCountryListView("default");
+
+        mListCountries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Country clickedCountry = (Country) mListCountries.getItemAtPosition(position);
+                Intent intent = new Intent(countryList.this, siteList.class);
+                intent.putExtra("countryId", ""+clickedCountry.getId());
+                startActivity(intent);
+            }
+        });
 
     }
 
-    public void populateSiteListView(String option) {
-        ArrayList<String> site_names = new ArrayList<String>();
+    public void populateCountryListView(String option) {
         unescoDB = new Database(this);
 
-        // Add sites to list view
-        ArrayList<Site> sites = unescoDB.getAllSites(option);
-        for(int i=0;i<sites.size(); i++) {
-            site_names.add(sites.get(i).getName());
-        }
-
-        mListSites = (ListView) findViewById(R.id.listSites);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(List.this,
-                android.R.layout.simple_list_item_1, site_names);
-        mListSites.setAdapter(adapter);
+        // Add countries to list view
+        ArrayList<Country> countries = unescoDB.getCountries(option);
+        mListCountries = (ListView) findViewById(R.id.listCountries);
+        final countryRowAdapter adapter = new countryRowAdapter(countryList.this, countries);
+        mListCountries.setAdapter(adapter);
     }
 
     @Override
@@ -109,29 +114,18 @@ public class List extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
-        // Handle click on category
-        if (id == R.id.nav_cultural) {
-            populateSiteListView("cultural");
-        } else if (id == R.id.nav_natural) {
-            populateSiteListView("natural");
-        } else if (id == R.id.nav_mixed) {
-            populateSiteListView("mixed");
-        }
-
         // Handle click on region
-        else if (id == R.id.nav_africa) {
-            populateSiteListView("africa");
+        if (id == R.id.nav_africa) {
+            populateCountryListView("africa");
         } else if (id == R.id.nav_arab) {
-            populateSiteListView("arab");
+            populateCountryListView("arab");
         } else if (id == R.id.nav_asia_pacific) {
-            populateSiteListView("asia");
+            populateCountryListView("asia");
         } else if (id == R.id.nav_europe_north_america) {
-            populateSiteListView("europe");
+            populateCountryListView("europe");
         } else if (id == R.id.nav_latin_america) {
-            populateSiteListView("latin");
+            populateCountryListView("latin");
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -1,15 +1,18 @@
 package fr.thebigtouffe.unescoworldheritage.UNESCO;
 
+import java.util.ArrayList;
+
 public class Site {
 
     private int number;
     private String name;
     private String name_fr;
 
+    private Category category;
     private Zone zone;
-    private Country country;
+    private ArrayList<Country> countries;
 
-    private Criterion criterion;
+    private ArrayList<Criterion> criteria;
     private Boolean endangered;
     private Integer yearInscribed;
 
@@ -25,8 +28,9 @@ public class Site {
     private String historical_description;
     private String historical_description_fr;
 
-    public Site(int number, String name, String name_fr, Zone zone, Country country,
-                Criterion criterion, Boolean endangered, Integer yearInscribed,
+    public Site(int number, String name, String name_fr, Category category, Zone zone,
+                ArrayList<Country> countries,
+                ArrayList<Criterion> criteria, Boolean endangered, Integer yearInscribed,
                 Double latitude, Double longitude,
                 String long_description, String long_description_fr,
                 String short_description, String short_description_fr,
@@ -35,9 +39,10 @@ public class Site {
         this.number = number;
         this.name = name;
         this.name_fr = name_fr;
+        this.category = category;
         this.zone = zone;
-        this.country = country;
-        this.criterion = criterion;
+        this.countries = countries;
+        this.criteria = criteria;
         this.endangered = endangered;
         this.yearInscribed = yearInscribed;
         this.latitude = latitude;
@@ -64,16 +69,20 @@ public class Site {
         return name_fr;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
     public Zone getZone() {
         return zone;
     }
 
-    public Country getCountry() {
-        return country;
+    public ArrayList<Country> getCountries() {
+        return countries;
     }
 
-    public Criterion getCriterion() {
-        return criterion;
+    public ArrayList<Criterion> getCriteria() {
+        return criteria;
     }
 
     public Boolean getEndangered() {
@@ -122,5 +131,30 @@ public class Site {
 
     public String getHistorical_description_fr() {
         return historical_description_fr;
+    }
+
+    @Override
+    public String toString() {
+        return "Site{" +
+                "number=" + number +
+                ", name='" + name + '\'' +
+                ", name_fr='" + name_fr + '\'' +
+                ", category=" + category +
+                ", zone=" + zone +
+                ", countries=" + countries +
+                ", criteria=" + criteria +
+                ", endangered=" + endangered +
+                ", yearInscribed=" + yearInscribed +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", long_description='" + long_description + '\'' +
+                ", long_description_fr='" + long_description_fr + '\'' +
+                ", short_description='" + short_description + '\'' +
+                ", short_description_fr='" + short_description_fr + '\'' +
+                ", justification='" + justification + '\'' +
+                ", justification_fr='" + justification_fr + '\'' +
+                ", historical_description='" + historical_description + '\'' +
+                ", historical_description_fr='" + historical_description_fr + '\'' +
+                '}';
     }
 }
