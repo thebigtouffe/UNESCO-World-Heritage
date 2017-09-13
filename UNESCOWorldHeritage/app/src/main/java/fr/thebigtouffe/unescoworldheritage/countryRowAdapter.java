@@ -28,7 +28,7 @@ public class countryRowAdapter extends ArrayAdapter<Country>  {
         if (viewHolder == null) {
             viewHolder = new CountryRowViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.country_row_name);
-            viewHolder.name_fr = (TextView) convertView.findViewById(R.id.country_row_name_fr);
+            viewHolder.category_count = (TextView) convertView.findViewById(R.id.country_row_category_count);
             convertView.setTag(viewHolder);
         }
 
@@ -36,16 +36,17 @@ public class countryRowAdapter extends ArrayAdapter<Country>  {
 
         viewHolder.name.setText(country.getName());
 
-        String subtext = "Cultural : "+country.getNumberCulturalSites();
-        subtext += " Natural : "+country.getNumberNaturalSites();
-        subtext += " Mixed : "+country.getNumberMixedSites();
-        viewHolder.name_fr.setText(subtext);
+        String subtext = String.format(getContext().getResources().getString(R.string.category_count),
+                ""+country.getNumberCulturalSites(),
+                ""+country.getNumberNaturalSites(),
+                ""+country.getNumberMixedSites());
+        viewHolder.category_count.setText(subtext);
 
         return convertView;
     }
 
     private class CountryRowViewHolder {
         public TextView name;
-        public TextView name_fr;
+        public TextView category_count;
     }
 }

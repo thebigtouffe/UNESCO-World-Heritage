@@ -15,7 +15,7 @@ android:padding="10dp" >
         android:textStyle="bold"
         tools:text="Country" />
 
-    <TextView android:id="@+id/country_row_name_fr"
+    <TextView android:id="@+id/country_row_category_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"

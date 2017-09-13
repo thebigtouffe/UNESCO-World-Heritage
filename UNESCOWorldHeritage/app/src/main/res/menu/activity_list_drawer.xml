@@ -12,27 +12,31 @@
             android:title="@string/seen_sites" />
     </group>
 
-    <group android:title="@string/region">
-        <item
-            android:id="@+id/nav_africa"
-            android:icon="@drawable/ic_menu_share"
-            android:title="@string/africa" />
-        <item
-            android:id="@+id/nav_arab"
-            android:icon="@drawable/ic_menu_share"
-            android:title="@string/arab_states" />
-        <item
-            android:id="@+id/nav_asia_pacific"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/asia_pacific" />
-        <item
-            android:id="@+id/nav_europe_north_america"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/europe_north_america" />
-        <item
-            android:id="@+id/nav_latin_america"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/latin_america" />
-    </group>
+    <item android:title="@string/region">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_africa"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="@string/africa" />
+                <item
+                    android:id="@+id/nav_arab"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="@string/arab_states" />
+                <item
+                    android:id="@+id/nav_asia_pacific"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="@string/asia_pacific" />
+                <item
+                    android:id="@+id/nav_europe_north_america"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="@string/europe_north_america" />
+                <item
+                    android:id="@+id/nav_latin_america"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="@string/latin_america" />
+            </group>
+        </menu>
+    </item>
 
 </menu>

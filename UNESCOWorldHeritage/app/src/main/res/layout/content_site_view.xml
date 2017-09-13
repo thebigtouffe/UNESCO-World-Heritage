@@ -61,6 +61,28 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/criteria"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/long_description">
+
+            <TextView
+                android:id="@+id/criteria_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:textSize="18sp"
+                android:text="@string/criteria" />
+
+            <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/criteria_webview"
+                android:layout_below="@+id/criteria_title"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
 

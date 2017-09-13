@@ -19,4 +19,9 @@
     <string name="world_map">Carte du monde</string>
     <string name="description">Description</string>
     <string name="inscribed_in">Inscrit en</string>
+    <string name="unesco_moto">Construire la paix dans l\'esprit des hommes et des femmes</string>
+    <string name="add_to_seen">Ajouté à la liste des sites visités.</string>
+    <string name="category_count">Culturel : %1$s, naturel : %2$s, mixte : %3$s</string>
+    <string name="criteria">Critères</string>
+    <string name="criterion">Critère</string>
 </resources>
