@@ -80,8 +80,6 @@ public class Map {
             mapController.setCenter(point);
 
             Float density = activity.getResources().getDisplayMetrics().density;
-            Log.d("density", ""+density);
-
             if (density < XHDPI_SCALING + epsilon) {
                 mapController.setZoom(4);
             }

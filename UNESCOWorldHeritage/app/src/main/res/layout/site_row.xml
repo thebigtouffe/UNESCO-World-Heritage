@@ -10,17 +10,18 @@ android:padding="10dp" >
         android:id="@+id/site_row_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
         android:layout_marginLeft="10dp"
-        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         tools:text="Name" />
 
-    <TextView android:id="@+id/site_row_name_fr"
+    <TextView
+        android:id="@+id/site_row_subtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
         android:layout_alignLeft="@+id/site_row_name"
         android:layout_below="@+id/site_row_name"
-        tools:text="Nom" />
+        android:textColor="@android:color/darker_gray"
+        tools:text="Subtext" />
 
 </RelativeLayout>

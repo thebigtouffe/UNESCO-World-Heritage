@@ -28,17 +28,20 @@ public class siteRowAdapter extends ArrayAdapter<Site>  {
         if (viewHolder == null) {
             viewHolder = new SiteRowViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.site_row_name);
+            viewHolder.subtext = (TextView) convertView.findViewById(R.id.site_row_subtext);
             convertView.setTag(viewHolder);
         }
 
         Site site = getItem(position);
 
         viewHolder.name.setText(site.getName());
+        viewHolder.subtext.setText(site.getCategory().getName());
 
         return convertView;
     }
 
     private class SiteRowViewHolder {
         public TextView name;
+        public TextView subtext;
     }
 }

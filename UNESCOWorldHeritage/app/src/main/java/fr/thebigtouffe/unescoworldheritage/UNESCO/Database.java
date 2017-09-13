@@ -31,7 +31,16 @@ public class Database extends SQLiteAssetHelper {
                 "JOIN app_site ON app_site.number = app_site_country.site_id ";
 
         query = addOptionsToQuery(query, option);
-        query += " GROUP BY app_country.name";
+        query += " GROUP BY app_country.id ";
+
+        // Order countries by names
+        if (isFrench) {
+            query += "ORDER BY app_country.name_fr";
+        }
+        else {
+            query += "ORDER BY app_country.name";
+        }
+
         Cursor c = db.rawQuery(query, null);
 
         while (c.moveToNext()) {
@@ -66,7 +75,7 @@ public class Database extends SQLiteAssetHelper {
                 "JOIN app_country ON country_id = app_country.id " +
                 "JOIN app_category ON app_category.id = app_site.category_id " +
                 "WHERE app_category.name = ? " +
-                "GROUP BY country_id, category_id";
+                "GROUP BY country_id, category_id ";
         Cursor c = db.rawQuery(query, new String[] {category});
 
         while (c.moveToNext()) {
@@ -140,27 +149,37 @@ public class Database extends SQLiteAssetHelper {
         ArrayList<Site> sites = new ArrayList<Site>();
 
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT number, name, name_fr, year_inscribed " +
+        String query = "SELECT number, app_site.name, app_site.name_fr, year_inscribed, " +
+                "app_category.name AS category, app_category.name_fr AS category_fr " +
                 "FROM app_site JOIN app_site_country ON number = site_id " +
+                "JOIN app_category ON app_category.id = app_site.category_id " +
                 "WHERE country_id = ? ";
 
 
         // Group sites by names
-        query += "ORDER BY name";
-        Log.d("query", query);
+        if (isFrench) {
+            query += "ORDER BY app_site.name_fr";
+        }
+        else {
+            query += "ORDER BY app_site.name";
+        }
 
         // Retrieve results
         Cursor c = db.rawQuery(query, new String[] {""+country.getId()});
         while (c.moveToNext()) {
             int number = c.getInt(c.getColumnIndex("number"));
             String name = c.getString(c.getColumnIndex("name"));
+            String categoryName = c.getString(c.getColumnIndex("category"));
 
-            if (isFrench)
+            if (isFrench) {
                 name = c.getString(c.getColumnIndex("name_fr"));
+                categoryName = c.getString(c.getColumnIndex("category_fr"));
+            }
 
+            Category category = new Category(categoryName);
             Integer yearInscribed = c.getInt(c.getColumnIndex("year_inscribed"));
 
-            Site site = new Site(number, name, null, null, null,
+            Site site = new Site(number, name, category, null, null,
                                  null, null, yearInscribed,  null, null, null, null,
                                  null, null);
 
@@ -175,8 +194,8 @@ public class Database extends SQLiteAssetHelper {
         String name_fr = new String("");
         Integer yearInscribed = 0;
         Boolean endangered = false;
-        Double latitude = 0.0;
-        Double longitude = 0.0;
+        Double latitude = null;
+        Double longitude = null;
         String long_description = new String("");
         String short_description = new String("");
         String justification = new String("");

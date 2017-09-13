@@ -2,19 +2,29 @@ package fr.thebigtouffe.unescoworldheritage;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 import org.osmdroid.views.MapView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Criterion;
@@ -72,11 +82,18 @@ public class siteView extends AppCompatActivity {
         descriptionView.loadData(customHtml, "text/html; charset=UTF-8", null);
 
         // Display long description
-        customHtml = "<html><body>" + cssStyle;
-        customHtml += site.getLong_description();
-        customHtml += "</body></html>";
-        WebView longDescriptionView = (WebView) findViewById(R.id.long_description_webview);
-        longDescriptionView.loadData(customHtml, "text/html; charset=UTF-8", null);
+        String longDescription = site.getLong_description();
+        if (longDescription.length() > 10) {
+            customHtml = "<html><body>" + cssStyle;
+            customHtml += longDescription;
+            customHtml += "</body></html>";
+            WebView longDescriptionView = (WebView) findViewById(R.id.long_description_webview);
+            longDescriptionView.loadData(customHtml, "text/html; charset=UTF-8", null);
+        }
+        else {
+            View longDescriptionContainer = findViewById(R.id.long_description);
+            longDescriptionContainer.setVisibility(RelativeLayout.GONE);
+        }
 
         // Display criteria
         ArrayList<Criterion> criteria = site.getCriteria();
@@ -91,8 +108,24 @@ public class siteView extends AppCompatActivity {
         criteriaView.loadData(customHtml, "text/html; charset=UTF-8", null);
 
         // Display map
-        Map map = new Map(site.getLatitude(), site.getLongitude(), (MapView) findViewById(R.id.map), this);
+        Double latitude = site.getLatitude();
+        Double longitude = site.getLongitude();
+        MapView mapView = (MapView) findViewById(R.id.map);
+        if (!longitude.equals(0.0)) {
+            Map map = new Map(latitude, longitude, mapView, this);
+        }
+        else {
+            mapView.setVisibility(MapView.GONE);
+        }
+
+        // Display picture
+        ImageView imageView = (ImageView) findViewById(R.id.navbar_picture);
+        //String url = "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tree_intertwining_with_temple.jpg";
+        String url = "http://whc.unesco.org/uploads/thumbs/site_1133_0017-360-360-20170705094318.jpg";
+        Picasso.with(getApplicationContext()).load(url).into(imageView);
+
     }
+
 
     public void toggleSeen(FloatingActionButton seeButton, View view) {
         int newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);

@@ -10,17 +10,18 @@ android:padding="10dp" >
         android:id="@+id/country_row_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
         android:layout_marginLeft="10dp"
-        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
         tools:text="Country" />
 
-    <TextView android:id="@+id/country_row_category_count"
+    <TextView
+        android:id="@+id/country_row_category_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
         android:layout_alignLeft="@+id/country_row_name"
         android:layout_below="@+id/country_row_name"
+        android:textColor="@android:color/darker_gray"
         tools:text="Count" />
 
 </RelativeLayout>

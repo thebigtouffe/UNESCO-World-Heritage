@@ -9,18 +9,27 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
-        android:layout_height="192dp"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent">
 
         <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:title="Title"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:collapsedTitleTextAppearance="@style/TextAppearance.CollapsedTitle"
             app:expandedTitleTextAppearance="@style/TextAppearance.ExpandedTitle"
+            app:contentScrim="?attr/colorPrimary"
             app:maxLines="3">
+
+            <ImageView
+                android:id="@+id/navbar_picture"
+                app:layout_collapseMode="parallax"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <android.support.v7.widget.Toolbar
                 android:layout_height="?attr/actionBarSize"
