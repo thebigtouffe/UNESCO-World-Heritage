@@ -1,6 +1,7 @@
 package fr.thebigtouffe.unescoworldheritage;
 
 import android.app.Activity;
+import android.util.Log;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.modules.OfflineTileProvider;
@@ -26,19 +27,23 @@ public class Map {
     private MapView map;
     private Activity activity;
 
+    private Double XHDPI_SCALING = 2.0;
+    private Double XXHDPI_SCALING = 3.0;
+    private Double XXXHDPI_SCALING = 4.0;
+
+    private Double epsilon = 0.01;
+
     public Map(Double latitude, Double longitude, MapView map, Activity activity) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.map = map;
         this.activity = activity;
 
-        map.setTileSource(TileSourceFactory.MAPNIK);
-
         // Options de la carte
         map.setUseDataConnection(false);
         map.setBuiltInZoomControls(false);
         map.setMaxZoomLevel(5);
-        map.setMinZoomLevel(3);
+        map.setMinZoomLevel(2);
         map.setMultiTouchControls(true);
 
         double boundNorth = 84.0;
@@ -73,7 +78,16 @@ public class Map {
             IMapController mapController = map.getController();
             GeoPoint point = new GeoPoint(latitude, longitude);
             mapController.setCenter(point);
-            mapController.setZoom(4);
+
+            Float density = activity.getResources().getDisplayMetrics().density;
+            Log.d("density", ""+density);
+
+            if (density < XHDPI_SCALING + epsilon) {
+                mapController.setZoom(4);
+            }
+            else {
+                mapController.setZoom(5);
+            }
 
             ArrayList<OverlayItem> overlayItemArray = new ArrayList<OverlayItem>();
             OverlayItem overlayItem = new OverlayItem("Linkoping", "Sweden", point);
@@ -87,10 +101,10 @@ public class Map {
         }
     }
 
-    public File getFileFromAssets(String aFileName) throws IOException {
-        File cacheFile = new File(activity.getCacheDir(), aFileName);
+    public File getFileFromAssets(String fileName) throws IOException {
+        File cacheFile = new File(activity.getCacheDir(), fileName);
         try {
-            InputStream inputStream = activity.getAssets().open(aFileName);
+            InputStream inputStream = activity.getAssets().open(fileName);
             try {
                 FileOutputStream outputStream = new FileOutputStream(cacheFile);
                 try {
@@ -106,7 +120,7 @@ public class Map {
                 inputStream.close();
             }
         } catch (IOException e) {
-            throw new IOException("Could not open "+aFileName, e);
+            throw new IOException("Could not open "+fileName, e);
         }
         return cacheFile;
     }

@@ -26,6 +26,7 @@ public class countryList extends AppCompatActivity
 
     private Database unescoDB;
     private ListView mListCountries;
+    private Boolean isDefaultView = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,15 @@ public class countryList extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+            if (isDefaultView) {
+                super.onBackPressed();
+            }
+            else {
+                isDefaultView = true;
+                populateCountryListView("default");
+            }
+
         }
     }
 
@@ -116,14 +125,19 @@ public class countryList extends AppCompatActivity
 
         // Handle click on region
         if (id == R.id.nav_africa) {
+            isDefaultView = false;
             populateCountryListView("africa");
         } else if (id == R.id.nav_arab) {
+            isDefaultView = false;
             populateCountryListView("arab");
         } else if (id == R.id.nav_asia_pacific) {
+            isDefaultView = false;
             populateCountryListView("asia");
         } else if (id == R.id.nav_europe_north_america) {
+            isDefaultView = false;
             populateCountryListView("europe");
         } else if (id == R.id.nav_latin_america) {
+            isDefaultView = false;
             populateCountryListView("latin");
         }
 
