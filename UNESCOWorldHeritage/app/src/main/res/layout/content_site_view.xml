@@ -12,16 +12,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/top_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_margin="@dimen/text_margin"
+                android:text="0" />
+
+        </RelativeLayout>
+
+        <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/description_webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/top_information"/>
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/map"
+            android:layout_width="fill_parent"
+            android:layout_height="180dp"
+            android:layout_below="@+id/description_webview"/>
+
         <TextView
             android:id="@+id/description_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/map"
             android:layout_margin="@dimen/text_margin"
             android:textSize="18sp"
             android:text="@string/description" />
 
         <WebView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/description_webview"
+            android:id="@+id/long_description_webview"
             android:layout_below="@+id/description_title"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />

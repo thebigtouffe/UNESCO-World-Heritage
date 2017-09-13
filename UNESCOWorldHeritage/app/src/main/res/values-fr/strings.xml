@@ -17,4 +17,6 @@
     <string name="seen_sites">Sites visités</string>
     <string name="liked_sites">Sites appréciés</string>
     <string name="world_map">Carte du monde</string>
+    <string name="description">Description</string>
+    <string name="inscribed_in">Inscrit en</string>
 </resources>

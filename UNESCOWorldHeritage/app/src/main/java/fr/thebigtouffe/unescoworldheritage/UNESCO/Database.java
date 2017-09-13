@@ -1,15 +1,14 @@
 package fr.thebigtouffe.unescoworldheritage.UNESCO;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Locale;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class Database extends SQLiteAssetHelper {
 
