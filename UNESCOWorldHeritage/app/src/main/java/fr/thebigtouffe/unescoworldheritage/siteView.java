@@ -2,15 +2,12 @@ package fr.thebigtouffe.unescoworldheritage;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -22,9 +19,6 @@ import com.squareup.picasso.Picasso;
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 import org.osmdroid.views.MapView;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Criterion;
@@ -100,7 +94,8 @@ public class siteView extends AppCompatActivity {
         customHtml = "<html><body>" + cssStyle;
         for (int i=0;i<criteria.size();i++) {
             Criterion criterion = criteria.get(i);
-            customHtml += "<h3>" + getResources().getString(R.string.criterion) + " "+criterion.getNumber() +"</h3>";
+            String criterionRoman = RomanNumber.toRoman(criterion.getNumber());
+            customHtml += "<h3>" + getResources().getString(R.string.criterion) + " "+ criterionRoman +"</h3>";
             customHtml += "<p>"+ criterion.getDesription() + "</p>";
         }
         customHtml += "</body></html>";
