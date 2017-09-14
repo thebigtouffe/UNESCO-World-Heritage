@@ -17,7 +17,11 @@ def removeHTMLTags(raw_html):
 
 
 def formatDescription(text):
-    return text.replace(" ,", ",")
+    text = text.replace(" ,", ",")
+    text = text.replace(" .", ".")
+    text = text.replace(" )", ")")
+    text = text.replace("( ", "(")
+    return text
 
 
 class Command(BaseCommand):
@@ -82,6 +86,8 @@ class Command(BaseCommand):
             # Get thumb
             image_url = site.xpath("image_url")[0].text
             s.thumb = base64.b64encode(requests.get(image_url).content)
+
+            s.url = site.xpath("http_url")[0].text
 
             s.save()
 

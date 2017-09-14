@@ -47,6 +47,7 @@ class Site(models.Model):
 	historical_description_fr = models.TextField(default="")
 
 	thumb = models.BinaryField(default=b"")
+	url = models.TextField(default="")
 	image1 = models.TextField(default="")
 	image2 = models.TextField(default="")
 	image3 = models.TextField(default="")

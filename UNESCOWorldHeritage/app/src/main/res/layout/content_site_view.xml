@@ -12,20 +12,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/top_information"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@android:color/transparent"/>
+
+            <ImageView
+                android:id="@+id/warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_warning"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="12sp"
                 android:textSize="18sp"
-                android:layout_margin="@dimen/text_margin"
                 android:text="0" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <WebView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/description_webview"

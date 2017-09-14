@@ -70,6 +70,11 @@ public class siteView extends AppCompatActivity {
         TextView year = (TextView) findViewById(R.id.year);
         year.setText(getResources().getString(R.string.inscribed_in) + " " + site.getYearInscribed());
 
+        // Display warning sign if site is endangered
+        ImageView warning = (ImageView) findViewById(R.id.warning);
+        if (site.getEndangered())
+            warning.setVisibility(ImageView.VISIBLE);
+
         // Display description using a WebView (because data contains XML tags)
         customHtml = "<html><body>" + cssStyle;
         customHtml += site.getShort_description();

@@ -35,10 +35,10 @@ public class Database extends SQLiteAssetHelper {
 
         // Order countries by names
         if (isFrench) {
-            query += "ORDER BY app_country.name_fr";
+            query += "ORDER BY app_country.name_fr COLLATE UNICODE";
         }
         else {
-            query += "ORDER BY app_country.name";
+            query += "ORDER BY app_country.name COLLATE UNICODE";
         }
 
         Cursor c = db.rawQuery(query, null);
@@ -158,10 +158,10 @@ public class Database extends SQLiteAssetHelper {
 
         // Group sites by names
         if (isFrench) {
-            query += "ORDER BY app_site.name_fr";
+            query += "ORDER BY app_site.name_fr COLLATE UNICODE";
         }
         else {
-            query += "ORDER BY app_site.name";
+            query += "ORDER BY app_site.name COLLATE UNICODE";
         }
 
         // Retrieve results
