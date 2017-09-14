@@ -182,7 +182,7 @@ public class Database extends SQLiteAssetHelper {
 
             Site site = new Site(number, name, category, null, null,
                                  null, null, yearInscribed,  null, null, null, null,
-                                 null, null, thumb);
+                                 null, null, thumb, null, null);
 
             sites.add(site);
         }
@@ -191,15 +191,17 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public Site getSiteById(int id) {
-        String name = new String("");
+        String name = "";
         Integer yearInscribed = 0;
         Boolean endangered = false;
         Double latitude = null;
         Double longitude = null;
-        String long_description = new String("");
-        String short_description = new String("");
-        String justification = new String("");
-        String historical_description = new String("");
+        String long_description = "";
+        String short_description = "";
+        String justification = "";
+        String historical_description = "";
+        String image1 = "";
+        String image1_license = "";
 
         Category category = new Category(null);
         ArrayList<Country> countries = new ArrayList<>();
@@ -221,6 +223,9 @@ public class Database extends SQLiteAssetHelper {
             long_description = c.getString(c.getColumnIndex("long_description"));
             historical_description = c.getString(c.getColumnIndex("historical_description"));
             justification = c.getString(c.getColumnIndex("justification"));
+
+            image1 = c.getString(c.getColumnIndex("image1_url"));
+            image1_license = c.getString(c.getColumnIndex("image1_description"));
 
             if (isFrench) {
                 name = c.getString(c.getColumnIndex("name_fr"));
@@ -292,7 +297,8 @@ public class Database extends SQLiteAssetHelper {
                 short_description,
                 justification,
                 historical_description,
-                null);
+                null,
+                image1, image1_license);
 
         return site;
     }

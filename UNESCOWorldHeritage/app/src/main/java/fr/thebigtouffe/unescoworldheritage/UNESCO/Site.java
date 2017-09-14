@@ -24,6 +24,8 @@ public class Site {
     private String historical_description;
 
     private byte[] thumb;
+    private String image1;
+    private String image1_license;
 
     public Site(int number, String name, Category category, Zone zone,
                 ArrayList<Country> countries,
@@ -33,7 +35,8 @@ public class Site {
                 String short_description,
                 String justification,
                 String historical_description,
-                byte[] thumb) {
+                byte[] thumb,
+                String image1, String image1_license) {
         this.number = number;
         this.name = name;
         this.category = category;
@@ -49,6 +52,8 @@ public class Site {
         this.justification = justification;
         this.historical_description = historical_description;
         this.thumb = thumb;
+        this.image1 = image1;
+        this.image1_license = image1_license;
     }
 
     public int getNumber() {
@@ -108,6 +113,14 @@ public class Site {
     }
 
     public byte[] getThumb() { return thumb; }
+
+    public String getImage1() {
+        return image1;
+    }
+
+    public String getImage1_license() {
+        return image1_license;
+    }
 
     @Override
     public String toString() {

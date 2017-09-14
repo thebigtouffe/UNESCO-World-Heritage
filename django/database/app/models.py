@@ -48,7 +48,10 @@ class Site(models.Model):
 
 	thumb = models.BinaryField(default=b"")
 	url = models.TextField(default="")
-	image1 = models.TextField(default="")
-	image2 = models.TextField(default="")
-	image3 = models.TextField(default="")
+	image1_url = models.TextField(default="")
+	image1_description = models.TextField(default="")
+	image2_url = models.TextField(default="")
+	image2_description = models.TextField(default="")
+	image3_url = models.TextField(default="")
+	image3_description = models.TextField(default="")
 
