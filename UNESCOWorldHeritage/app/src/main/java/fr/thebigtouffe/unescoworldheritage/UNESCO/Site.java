@@ -23,6 +23,8 @@ public class Site {
     private String justification;
     private String historical_description;
 
+    private byte[] thumb;
+
     public Site(int number, String name, Category category, Zone zone,
                 ArrayList<Country> countries,
                 ArrayList<Criterion> criteria, Boolean endangered, Integer yearInscribed,
@@ -30,7 +32,8 @@ public class Site {
                 String long_description,
                 String short_description,
                 String justification,
-                String historical_description) {
+                String historical_description,
+                byte[] thumb) {
         this.number = number;
         this.name = name;
         this.category = category;
@@ -45,6 +48,7 @@ public class Site {
         this.short_description = short_description;
         this.justification = justification;
         this.historical_description = historical_description;
+        this.thumb = thumb;
     }
 
     public int getNumber() {
@@ -102,6 +106,8 @@ public class Site {
     public String getHistorical_description() {
         return historical_description;
     }
+
+    public byte[] getThumb() { return thumb; }
 
     @Override
     public String toString() {

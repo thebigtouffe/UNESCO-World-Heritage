@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Criterion;
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Database;
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Site;
+import fr.thebigtouffe.unescoworldheritage.Utils.Map;
+import fr.thebigtouffe.unescoworldheritage.Utils.RomanNumber;
 
 public class siteView extends AppCompatActivity {
 
@@ -115,8 +117,9 @@ public class siteView extends AppCompatActivity {
 
         // Display picture
         ImageView imageView = (ImageView) findViewById(R.id.navbar_picture);
-        //String url = "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tree_intertwining_with_temple.jpg";
-        String url = "http://whc.unesco.org/uploads/thumbs/site_1133_0017-360-360-20170705094318.jpg";
+        String url = "https://upload.wikimedia.org/wikipedia/commons/7/7a/Tree_intertwining_with_temple.jpg";
+        //String url = "http://whc.unesco.org/uploads/thumbs/site_1133_0017-360-360-20170705094318.jpg";
+        //String url = "http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/07/white-background-2.jpg";
         Picasso.with(getApplicationContext()).load(url).into(imageView);
 
     }

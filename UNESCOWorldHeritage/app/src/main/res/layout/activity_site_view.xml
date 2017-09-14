@@ -31,6 +31,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="120sp"
+                android:layout_gravity="bottom"
+                android:layout_alignBottom="@+id/navbar_picture"
+                android:background="@drawable/scrim_bottom"/>
+
             <android.support.v7.widget.Toolbar
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"

@@ -6,11 +6,19 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:padding="10dp" >
 
+    <ImageView
+        android:id="@+id/site_thumb"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:paddingTop="4dp"
+        tools:background="#AAA" />
+
     <TextView
         android:id="@+id/site_row_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/site_thumb"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         tools:text="Name" />

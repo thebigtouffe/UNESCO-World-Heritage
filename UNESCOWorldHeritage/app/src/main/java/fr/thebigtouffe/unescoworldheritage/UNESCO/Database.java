@@ -150,7 +150,7 @@ public class Database extends SQLiteAssetHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT number, app_site.name, app_site.name_fr, year_inscribed, " +
-                "app_category.name AS category, app_category.name_fr AS category_fr " +
+                "app_category.name AS category, app_category.name_fr AS category_fr, thumb " +
                 "FROM app_site JOIN app_site_country ON number = site_id " +
                 "JOIN app_category ON app_category.id = app_site.category_id " +
                 "WHERE country_id = ? ";
@@ -178,10 +178,11 @@ public class Database extends SQLiteAssetHelper {
 
             Category category = new Category(categoryName);
             Integer yearInscribed = c.getInt(c.getColumnIndex("year_inscribed"));
+            byte[] thumb = c.getBlob(c.getColumnIndex("thumb"));
 
             Site site = new Site(number, name, category, null, null,
                                  null, null, yearInscribed,  null, null, null, null,
-                                 null, null);
+                                 null, null, thumb);
 
             sites.add(site);
         }
@@ -191,7 +192,6 @@ public class Database extends SQLiteAssetHelper {
 
     public Site getSiteById(int id) {
         String name = new String("");
-        String name_fr = new String("");
         Integer yearInscribed = 0;
         Boolean endangered = false;
         Double latitude = null;
@@ -291,7 +291,8 @@ public class Database extends SQLiteAssetHelper {
                 long_description,
                 short_description,
                 justification,
-                historical_description);
+                historical_description,
+                null);
 
         return site;
     }

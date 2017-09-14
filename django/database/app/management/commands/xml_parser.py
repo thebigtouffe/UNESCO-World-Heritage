@@ -5,6 +5,19 @@ from app.models import *
 
 from lxml import etree
 import roman
+import re
+import base64
+import requests
+
+
+def removeHTMLTags(raw_html):
+        cleanr = re.compile('<.*?>')
+        cleantext = re.sub(cleanr, '', raw_html)
+        return cleantext
+
+
+def formatDescription(text):
+    return text.replace(" ,", ",")
 
 
 class Command(BaseCommand):
@@ -14,17 +27,19 @@ class Command(BaseCommand):
         print("This tool will populate Django database with XML data")
 
         tree = etree.parse("database_en.xml")
-        print("English database opened.")
-        for site in tree.xpath("/query/row"):
+        print("English database opened. \n")
+        english_data = tree.xpath("/query/row")
+
+        for i, site in enumerate(english_data):
             number = int(site.xpath("id_number")[0].text)
-            print(number)
+            print("%s / %s" % (str(i+1), str(len(english_data))))
 
             s, c = Site.objects.get_or_create(number=number)
 
             category = site.xpath("category")[0].text
             s.category = Category.objects.get(name=category)
 
-            s.name = site.xpath("site")[0].text
+            s.name = removeHTMLTags(site.xpath("site")[0].text)
             s.year_inscribed = int(site.xpath("date_inscribed")[0].text)
 
             s.endangered = site.xpath("danger")[0].text is not None
@@ -45,13 +60,13 @@ class Command(BaseCommand):
             historical_description = site.xpath("historical_description")[0].text
 
             if long_description:
-                s.long_description = long_description
+                s.long_description = formatDescription(long_description)
             if short_description:
-                s.short_description = short_description
+                s.short_description = formatDescription(short_description)
             if justification:
-                s.justification = justification
+                s.justification = formatDescription(justification)
             if historical_description:
-                s.historical_description = historical_description
+                s.historical_description = formatDescription(historical_description)
 
             try:
                 countries = site.xpath("iso_code")[0].text.split(",")
@@ -64,18 +79,22 @@ class Command(BaseCommand):
             zone = site.xpath("region")[0].text
             s.zone = Zone.objects.get(name=zone)
 
+            # Get thumb
+            image_url = site.xpath("image_url")[0].text
+            s.thumb = base64.b64encode(requests.get(image_url).content)
+
             s.save()
 
 
         tree_fr = etree.parse("database_fr.xml")
         print("French database opened.")
+        print("Adding French data...")
         for site in tree_fr.xpath("/query/row"):
             number = int(site.xpath("id_number")[0].text)
-            print(number)
 
             s, c = Site.objects.get_or_create(number=number)
 
-            s.name_fr = site.xpath("site")[0].text
+            s.name_fr = removeHTMLTags(site.xpath("site")[0].text)
             
             long_description_fr = site.xpath("long_description")[0].text
             short_description_fr = site.xpath("short_description")[0].text
@@ -83,13 +102,13 @@ class Command(BaseCommand):
             historical_description_fr = site.xpath("historical_description")[0].text
 
             if long_description_fr:
-                s.long_description_fr = long_description_fr
+                s.long_description_fr = formatDescription(long_description_fr)
             if short_description_fr:
-                s.short_description_fr = short_description_fr
+                s.short_description_fr = formatDescription(short_description_fr)
             if justification_fr:
-                s.justification_fr = justification_fr
+                s.justification_fr = formatDescription(justification_fr)
             if historical_description_fr:
-                s.historical_description_fr = historical_description_fr
+                s.historical_description_fr = formatDescription(historical_description_fr)
 
             s.save()
 
