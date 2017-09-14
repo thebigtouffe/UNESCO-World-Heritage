@@ -70,7 +70,7 @@ public class siteView extends AppCompatActivity {
         TextView year = (TextView) findViewById(R.id.year);
         year.setText(getResources().getString(R.string.inscribed_in) + " " + site.getYearInscribed());
 
-        // Display description using a WebView (because data countains XML tags)
+        // Display description using a WebView (because data contains XML tags)
         customHtml = "<html><body>" + cssStyle;
         customHtml += site.getShort_description();
         customHtml += "</body></html>";
@@ -85,21 +85,28 @@ public class siteView extends AppCompatActivity {
             customHtml += "</body></html>";
             WebView longDescriptionView = (WebView) findViewById(R.id.long_description_webview);
             longDescriptionView.loadData(customHtml, "text/html; charset=UTF-8", null);
-        }
-        else {
+
             View longDescriptionContainer = findViewById(R.id.long_description);
-            longDescriptionContainer.setVisibility(RelativeLayout.GONE);
+            longDescriptionContainer.setVisibility(RelativeLayout.VISIBLE);
         }
 
         // Display criteria
         ArrayList<Criterion> criteria = site.getCriteria();
+        String justification = site.getJustification();
         customHtml = "<html><body>" + cssStyle;
-        for (int i=0;i<criteria.size();i++) {
-            Criterion criterion = criteria.get(i);
-            String criterionRoman = RomanNumber.toRoman(criterion.getNumber());
-            customHtml += "<h3>" + getResources().getString(R.string.criterion) + " "+ criterionRoman +"</h3>";
-            customHtml += "<p>"+ criterion.getDesription() + "</p>";
+
+        if (justification.length() > 10) {
+            customHtml += justification;
+        } else {
+            // Fallback if no justification is given
+            for (int i = 0; i < criteria.size(); i++) {
+                Criterion criterion = criteria.get(i);
+                String criterionRoman = RomanNumber.toRoman(criterion.getNumber());
+                customHtml += "<h3>" + getResources().getString(R.string.criterion) + " " + criterionRoman + "</h3>";
+                customHtml += "<p>" + criterion.getDesription() + "</p>";
+            }
         }
+
         customHtml += "</body></html>";
         WebView criteriaView = (WebView) findViewById(R.id.criteria_webview);
         criteriaView.loadData(customHtml, "text/html; charset=UTF-8", null);
@@ -110,9 +117,7 @@ public class siteView extends AppCompatActivity {
         MapView mapView = (MapView) findViewById(R.id.map);
         if (!longitude.equals(0.0)) {
             Map map = new Map(latitude, longitude, mapView, this);
-        }
-        else {
-            mapView.setVisibility(MapView.GONE);
+            mapView.setVisibility(MapView.VISIBLE);
         }
 
         // Display picture

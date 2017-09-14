@@ -24,4 +24,6 @@
     <string name="category_count">Culturel : %1$s, naturel : %2$s, mixte : %3$s</string>
     <string name="criteria">Critères</string>
     <string name="criterion">Critère</string>
+    <string name="eligibility_criteria">Critères d\'admissibilité</string>
+    <string name="copyright_unesco">© UNESCO/Centre du Patrimoine mondial</string>
 </resources>

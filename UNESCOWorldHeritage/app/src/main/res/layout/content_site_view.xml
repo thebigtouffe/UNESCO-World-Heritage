@@ -37,13 +37,15 @@
             android:id="@+id/map"
             android:layout_width="fill_parent"
             android:layout_height="180dp"
-            android:layout_below="@+id/description_webview"/>
+            android:layout_below="@+id/description_webview"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:id="@+id/long_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/map">
+            android:layout_below="@+id/map"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/description_title"
@@ -73,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
                 android:textSize="18sp"
-                android:text="@string/criteria" />
+                android:text="@string/eligibility_criteria" />
 
             <WebView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/criteria_webview"
@@ -82,6 +84,15 @@
                 android:layout_height="fill_parent" />
 
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/criteria"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/copyright_unesco"
+            android:textAlignment="center"/>
 
     </RelativeLayout>
 

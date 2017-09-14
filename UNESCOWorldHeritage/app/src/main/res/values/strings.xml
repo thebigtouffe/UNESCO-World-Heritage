@@ -28,7 +28,10 @@
     <string name="category_count">Cultural: %1$s, natural: %2$s, mixed: %3$s</string>
     <string name="description">Description</string>
     <string name="inscribed_in">Inscribed in</string>
-    <string name="criteria">Criteria</string>
+    <string name="eligibility_criteria">Eligibility criteria</string>
     <string name="criterion">Criterion</string>
     <string name="add_to_seen">Site added to seen list.</string>
+    <string name="criteria">Criteria</string>
+
+    <string name="copyright_unesco">© UNESCO/World Heritage Centre</string>
 </resources>
