@@ -65,7 +65,8 @@ public class siteView extends AppCompatActivity {
         // Display picture
         ImageView imageView = (ImageView) findViewById(R.id.navbar_picture);
         String imageUrl = site.getImage1();
-        Picasso.with(getApplicationContext()).load(imageUrl).into(imageView);
+        if (imageUrl.length() > 10)
+            Picasso.with(getApplicationContext()).load(imageUrl).into(imageView);
 
         // Display site name
         CollapsingToolbarLayout toolbarTitle = (CollapsingToolbarLayout) findViewById(R.id.toolbar_title);

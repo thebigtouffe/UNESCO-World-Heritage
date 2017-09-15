@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_likes"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_heart_grey"
             android:title="@string/liked_sites" />
         <item
             android:id="@+id/nav_seen"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_eye_grey"
             android:title="@string/seen_sites" />
     </group>
 
@@ -17,23 +17,23 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_africa"
-                    android:icon="@drawable/ic_menu_share"
+                    android:icon="@drawable/ic_africa"
                     android:title="@string/africa" />
                 <item
                     android:id="@+id/nav_arab"
-                    android:icon="@drawable/ic_menu_share"
+                    android:icon="@drawable/ic_arab"
                     android:title="@string/arab_states" />
                 <item
                     android:id="@+id/nav_asia_pacific"
-                    android:icon="@drawable/ic_menu_send"
+                    android:icon="@drawable/ic_asia"
                     android:title="@string/asia_pacific" />
                 <item
                     android:id="@+id/nav_europe_north_america"
-                    android:icon="@drawable/ic_menu_send"
+                    android:icon="@drawable/ic_europe"
                     android:title="@string/europe_north_america" />
                 <item
                     android:id="@+id/nav_latin_america"
-                    android:icon="@drawable/ic_menu_send"
+                    android:icon="@drawable/ic_latin"
                     android:title="@string/latin_america" />
             </group>
         </menu>

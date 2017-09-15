@@ -224,8 +224,11 @@ public class Database extends SQLiteAssetHelper {
             historical_description = c.getString(c.getColumnIndex("historical_description"));
             justification = c.getString(c.getColumnIndex("justification"));
 
-            image1 = c.getString(c.getColumnIndex("image1_url"));
-            image1_license = c.getString(c.getColumnIndex("image1_description"));
+            try {
+                image1 = c.getString(c.getColumnIndex("image1_url"));
+                image1_license = c.getString(c.getColumnIndex("image1_description"));
+            } catch (Exception e){ }
+
 
             if (isFrench) {
                 name = c.getString(c.getColumnIndex("name_fr"));

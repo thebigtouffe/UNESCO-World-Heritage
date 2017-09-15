@@ -5,6 +5,7 @@ import fr.thebigtouffe.unescoworldheritage.UNESCO.Site;
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Database;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -32,7 +33,9 @@ public class siteList extends AppCompatActivity {
         unescoDB = new Database(this);
         Country country = unescoDB.getCountryById(Integer.parseInt(countryId));
 
-        this.getSupportActionBar().setTitle(country.getName());
+        ActionBar actionBar = this.getSupportActionBar();
+        actionBar.setTitle(country.getName());
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         populateSiteListView(country);
 
@@ -45,6 +48,12 @@ public class siteList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public boolean onSupportNavigateUp(){
+        finish();
+        // or call onBackPressed()
+        return true;
     }
 
     public void populateSiteListView(Country country) {
