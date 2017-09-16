@@ -1,14 +1,14 @@
 package fr.thebigtouffe.unescoworldheritage.UNESCO;
 
 public class Country {
-    private int id;
+    private Integer id;
     private String name;
     private String iso;
     private Integer numberCulturalSites = 0;
     private Integer numberMixedSites = 0;
     private Integer numberNaturalSites = 0;
 
-    public Country(int id, String name, String iso) {
+    public Country(Integer id, String name, String iso) {
         this.name = name;
         this.id = id;
         this.iso = iso;
@@ -18,15 +18,13 @@ public class Country {
         return name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
     public String toString() {
-        return "Country{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     public Integer getNumberCulturalSites() {

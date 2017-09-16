@@ -129,6 +129,12 @@ public class countryList extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        // Handle click on first part of drawer
+        if (id == R.id.nav_seen) {
+            Intent intent = new Intent(countryList.this, seenSites.class);
+            startActivity(intent);
+        }
+
         // Handle click on region
         if (id == R.id.nav_africa) {
             isDefaultView = false;

@@ -10,12 +10,14 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import fr.thebigtouffe.unescoworldheritage.userManager;
+
 public class Database extends SQLiteAssetHelper {
 
     private Boolean isFrench = Locale.getDefault().getLanguage().equals("fr");
 
     private static final String DATABASE_NAME = "unesco.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 20170916;
 
     private ArrayList<Country> countries = new ArrayList<>();
 
@@ -182,14 +184,38 @@ public class Database extends SQLiteAssetHelper {
             Integer yearInscribed = c.getInt(c.getColumnIndex("year_inscribed"));
             byte[] thumb = c.getBlob(c.getColumnIndex("thumb"));
 
-            Site site = new Site(number, name, category, null, null,
-                                 null, null, yearInscribed,  null, null, null, null,
-                                 null, null, thumb, null, null);
+            Site site = new Site(number, name);
+            site.setYearInscribed(yearInscribed);
+            site.setCategory(category);
+            site.setThumb(thumb);
 
             sites.add(site);
         }
         c.close();
         return sites;
+    }
+
+    public ArrayList<Country> getCountriesBySiteID(int id) {
+        ArrayList<Country> countries = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String countriesQuery = "SELECT app_country.id, name, name_fr " +
+                "FROM app_country JOIN app_site_country ON country_id=app_country.id " +
+                "WHERE site_id = ?";
+        Cursor c = db.rawQuery(countriesQuery, new String[] {""+id});
+
+        while (c.moveToNext()) {
+            Integer country_id = c.getInt(c.getColumnIndex("id"));
+            String country_name = c.getString(c.getColumnIndex("name"));
+
+            if (isFrench)
+                country_name = c.getString(c.getColumnIndex("name_fr"));
+
+            countries.add(new Country(country_id, country_name, null));
+        }
+
+        return countries;
     }
 
     public Site getSiteById(int id) {
@@ -206,7 +232,6 @@ public class Database extends SQLiteAssetHelper {
         String image1_license = "";
 
         Category category = new Category(null);
-        ArrayList<Country> countries = new ArrayList<>();
         Zone zone = new Zone(null);
         ArrayList<Criterion> criteria = new ArrayList<>();
 
@@ -266,19 +291,7 @@ public class Database extends SQLiteAssetHelper {
             zone = new Zone(zone_name);
         }
 
-        String countriesQuery = "SELECT app_country.id, name, name_fr " +
-                "FROM app_country JOIN app_site_country ON country_id=app_country.id " +
-                "WHERE site_id = ?";
-        Cursor c4 = db.rawQuery(countriesQuery, new String[] {""+id});
-        while (c4.moveToNext()) {
-            Integer country_id = c4.getInt(c4.getColumnIndex("id"));
-            String country_name = c4.getString(c4.getColumnIndex("name"));
-
-            if (isFrench)
-                country_name = c4.getString(c4.getColumnIndex("name_fr"));
-
-            countries.add(new Country(country_id, country_name, null));
-        }
+        ArrayList<Country> countries = getCountriesBySiteID(id);
 
         String criteriaQuery = "SELECT app_criterion.number, description, description_fr " +
                 "FROM app_criterion JOIN app_site_criteria ON criterion_id=app_criterion.number " +
@@ -295,15 +308,18 @@ public class Database extends SQLiteAssetHelper {
         }
 
 
-        Site site = new Site(id, name, category, zone, countries,
-                criteria, endangered, yearInscribed,
-                latitude, longitude,
-                long_description,
-                short_description,
-                justification,
-                historical_description,
-                null,
-                image1, image1_license);
+        Site site = new Site(id, name);
+        site.setYearInscribed(yearInscribed);
+        site.setCriteria(criteria);
+        site.setShort_description(short_description);
+        site.setHistorical_description(historical_description);
+        site.setLong_description(long_description);
+        site.setEndangered(endangered);
+        site.setLongitude(longitude);
+        site.setLatitude(latitude);
+        site.setJustification(justification);
+        site.setImage1(image1);
+        site.setImage1_license(image1_license);
 
         return site;
     }
@@ -320,6 +336,35 @@ public class Database extends SQLiteAssetHelper {
         }
         c.close();
         return id;
+    }
+
+    public ArrayList<Site> getSeenSites(String list) {
+
+        ArrayList<Site> seenSites = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT app_site.number, name, name_fr, thumb " +
+                "FROM app_site " +
+                "WHERE number IN " + list;
+        Cursor c = db.rawQuery(query, null);
+
+        while (c.moveToNext()) {
+            int number = c.getInt(c.getColumnIndex("number"));
+            String name = c.getString(c.getColumnIndex("name"));
+            byte[] thumb = c.getBlob(c.getColumnIndex("thumb"));
+
+            if (isFrench) {
+                name = c.getString(c.getColumnIndex("name_fr"));
+            }
+
+            Site site = new Site(number, name);
+            site.setThumb(thumb);
+            site.setCountries(getCountriesBySiteID(number));
+            seenSites.add(site);
+        }
+        c.close();
+
+        return seenSites;
     }
 
 }

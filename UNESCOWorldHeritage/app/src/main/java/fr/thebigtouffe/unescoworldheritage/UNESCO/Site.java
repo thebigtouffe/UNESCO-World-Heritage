@@ -27,33 +27,9 @@ public class Site {
     private String image1;
     private String image1_license;
 
-    public Site(int number, String name, Category category, Zone zone,
-                ArrayList<Country> countries,
-                ArrayList<Criterion> criteria, Boolean endangered, Integer yearInscribed,
-                Double latitude, Double longitude,
-                String long_description,
-                String short_description,
-                String justification,
-                String historical_description,
-                byte[] thumb,
-                String image1, String image1_license) {
+    public Site(int number, String name) {
         this.number = number;
         this.name = name;
-        this.category = category;
-        this.zone = zone;
-        this.countries = countries;
-        this.criteria = criteria;
-        this.endangered = endangered;
-        this.yearInscribed = yearInscribed;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.long_description = long_description;
-        this.short_description = short_description;
-        this.justification = justification;
-        this.historical_description = historical_description;
-        this.thumb = thumb;
-        this.image1 = image1;
-        this.image1_license = image1_license;
     }
 
     public int getNumber() {
@@ -140,5 +116,73 @@ public class Site {
                 ", justification='" + justification + '\'' +
                 ", historical_description='" + historical_description + '\'' +
                 '}';
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setZone(Zone zone) {
+        this.zone = zone;
+    }
+
+    public void setCountries(ArrayList<Country> countries) {
+        this.countries = countries;
+    }
+
+    public void setCriteria(ArrayList<Criterion> criteria) {
+        this.criteria = criteria;
+    }
+
+    public void setEndangered(Boolean endangered) {
+        this.endangered = endangered;
+    }
+
+    public void setYearInscribed(Integer yearInscribed) {
+        this.yearInscribed = yearInscribed;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLong_description(String long_description) {
+        this.long_description = long_description;
+    }
+
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
+    }
+
+    public void setJustification(String justification) {
+        this.justification = justification;
+    }
+
+    public void setHistorical_description(String historical_description) {
+        this.historical_description = historical_description;
+    }
+
+    public void setThumb(byte[] thumb) {
+        this.thumb = thumb;
+    }
+
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    public void setImage1_license(String image1_license) {
+        this.image1_license = image1_license;
     }
 }

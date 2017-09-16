@@ -24,6 +24,9 @@ public class siteRowAdapter extends ArrayAdapter<Site>  {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        String activityName = getContext().getClass().getSimpleName();
+        Log.d("activity", activityName);
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.site_row,parent, false);
         }
@@ -40,7 +43,13 @@ public class siteRowAdapter extends ArrayAdapter<Site>  {
         Site site = getItem(position);
 
         viewHolder.name.setText(site.getName());
-        viewHolder.subtext.setText(site.getCategory().getName());
+
+        if (activityName.equals("siteList"))
+            viewHolder.subtext.setText(site.getCategory().getName());
+
+        if (activityName.equals("seenSites"))
+            viewHolder.subtext.setText(site.getCountries().toString().replace("[","").replace("]",""));
+
 
         byte[] thumbArray = Base64.decode(site.getThumb() , Base64.DEFAULT);
         Log.d("image", ""+thumbArray.length);

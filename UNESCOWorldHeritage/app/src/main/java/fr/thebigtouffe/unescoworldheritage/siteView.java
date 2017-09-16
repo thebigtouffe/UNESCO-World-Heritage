@@ -30,6 +30,10 @@ import fr.thebigtouffe.unescoworldheritage.Utils.RomanNumber;
 public class siteView extends AppCompatActivity {
 
     private Database unescoDB;
+    private userManager userManager;
+
+    private Site site;
+
     private String customHtml;
     private String cssStyle = "<style>" +
             "body {" +
@@ -54,13 +58,16 @@ public class siteView extends AppCompatActivity {
             }
         });
 
+        // Load databases
+        unescoDB = new Database(this);
+        userManager = new userManager(this);
+
         // Get ID of the site to be displayed
         Intent intent = getIntent();
         String siteId = intent.getStringExtra("siteId");
 
         // Get site info
-        unescoDB = new Database(this);
-        Site site = unescoDB.getSiteById(Integer.parseInt(siteId));
+        site = unescoDB.getSiteById(Integer.parseInt(siteId));
 
         // Display picture
         ImageView imageView = (ImageView) findViewById(R.id.navbar_picture);
@@ -137,6 +144,7 @@ public class siteView extends AppCompatActivity {
     public void toggleSeen(FloatingActionButton seeButton, View view) {
         int newColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
         seeButton.setBackgroundTintList(ColorStateList.valueOf(newColor));
+        userManager.addSiteToSeen(site);
         Snackbar.make(view, getResources().getString(R.string.add_to_seen), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
