@@ -113,6 +113,12 @@ public class countryList extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_random_site) {
+            int randomId = unescoDB.getRandomSiteId();
+            Intent intent = new Intent(countryList.this, siteView.class);
+            intent.putExtra("siteId", ""+randomId);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }

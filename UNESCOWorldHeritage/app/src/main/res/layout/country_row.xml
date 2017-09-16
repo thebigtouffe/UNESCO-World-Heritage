@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:padding="10dp" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="6dp">
+
+    <ImageView
+        android:id="@+id/country_flag"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        tools:background="@android:color/transparent" />
 
     <TextView
         android:id="@+id/country_row_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/country_flag"
         android:layout_marginLeft="10dp"
         android:textColor="@android:color/black"
         android:textSize="18sp"

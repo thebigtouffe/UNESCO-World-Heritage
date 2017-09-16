@@ -3,13 +3,15 @@ package fr.thebigtouffe.unescoworldheritage.UNESCO;
 public class Country {
     private int id;
     private String name;
+    private String iso;
     private Integer numberCulturalSites = 0;
     private Integer numberMixedSites = 0;
     private Integer numberNaturalSites = 0;
 
-    public Country(int id, String name) {
+    public Country(int id, String name, String iso) {
         this.name = name;
         this.id = id;
+        this.iso = iso;
     }
 
     public String getName() {
@@ -49,5 +51,9 @@ public class Country {
 
     public void setNumberNaturalSites(Integer numberNaturalSites) {
         this.numberNaturalSites = numberNaturalSites;
+    }
+
+    public String getIso() {
+        return iso;
     }
 }

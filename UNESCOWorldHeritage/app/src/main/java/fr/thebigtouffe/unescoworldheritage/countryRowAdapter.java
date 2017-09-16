@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,12 +30,16 @@ public class countryRowAdapter extends ArrayAdapter<Country>  {
             viewHolder = new CountryRowViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.country_row_name);
             viewHolder.category_count = (TextView) convertView.findViewById(R.id.country_row_category_count);
+            viewHolder.flag = (ImageView) convertView.findViewById(R.id.country_flag);
             convertView.setTag(viewHolder);
         }
 
         Country country = getItem(position);
 
         viewHolder.name.setText(country.getName());
+
+        viewHolder.flag.setImageResource(getContext().getResources().getIdentifier("flag_" +
+                        country.getIso().toLowerCase(), "drawable", getContext().getPackageName()));
 
         String subtext = String.format(getContext().getResources().getString(R.string.category_count),
                 ""+country.getNumberCulturalSites(),
@@ -48,5 +53,6 @@ public class countryRowAdapter extends ArrayAdapter<Country>  {
     private class CountryRowViewHolder {
         public TextView name;
         public TextView category_count;
+        public ImageView flag;
     }
 }

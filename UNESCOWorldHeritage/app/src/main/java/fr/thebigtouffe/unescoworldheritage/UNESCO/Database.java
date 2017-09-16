@@ -26,7 +26,8 @@ public class Database extends SQLiteAssetHelper {
     public ArrayList<Country> getCountries(String option) {
         SQLiteDatabase db = getReadableDatabase();
 
-        String query = "SELECT app_country.id, app_country.name, app_country.name_fr, count(site_id) AS count " +
+        String query = "SELECT app_country.id, app_country.name, app_country.name_fr, " +
+                "count(site_id) AS count, app_country.iso " +
                 "FROM app_country JOIN app_site_country ON app_country.id=country_id " +
                 "JOIN app_site ON app_site.number = app_site_country.site_id ";
 
@@ -46,6 +47,7 @@ public class Database extends SQLiteAssetHelper {
         while (c.moveToNext()) {
             Integer id = c.getInt(c.getColumnIndex("id"));
             String name = c.getString(c.getColumnIndex("name"));
+            String iso = c.getString(c.getColumnIndex("iso"));
 
             if (isFrench)
                 name = c.getString(c.getColumnIndex("name_fr"));
@@ -54,7 +56,7 @@ public class Database extends SQLiteAssetHelper {
 
             // Exclude countries without any registered site
             if (count > 0) {
-                Country country = new Country(id, name);
+                Country country = new Country(id, name, iso);
                 countries.add(country);
             }
         }
@@ -275,7 +277,7 @@ public class Database extends SQLiteAssetHelper {
             if (isFrench)
                 country_name = c4.getString(c4.getColumnIndex("name_fr"));
 
-            countries.add(new Country(country_id, country_name));
+            countries.add(new Country(country_id, country_name, null));
         }
 
         String criteriaQuery = "SELECT app_criterion.number, description, description_fr " +
@@ -304,6 +306,20 @@ public class Database extends SQLiteAssetHelper {
                 image1, image1_license);
 
         return site;
+    }
+
+    public int getRandomSiteId() {
+        int id = 1;
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT number FROM app_site ORDER BY RANDOM() LIMIT 1";
+        Cursor c = db.rawQuery(query, null);
+
+        if (c.moveToFirst()) {
+            id = c.getInt(c.getColumnIndex("number"));
+        }
+        c.close();
+        return id;
     }
 
 }
