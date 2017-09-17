@@ -346,6 +346,15 @@ public class Database extends SQLiteAssetHelper {
         String query = "SELECT app_site.number, name, name_fr, thumb " +
                 "FROM app_site " +
                 "WHERE number IN " + list;
+
+        // Order sites by names
+        if (isFrench) {
+            query += " ORDER BY name_fr COLLATE UNICODE";
+        }
+        else {
+            query += " ORDER BY name COLLATE UNICODE";
+        }
+
         Cursor c = db.rawQuery(query, null);
 
         while (c.moveToNext()) {

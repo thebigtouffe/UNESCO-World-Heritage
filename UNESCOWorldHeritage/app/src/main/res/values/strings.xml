@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">UNESCO World Heritage</string>
+    <string name="seen_site_activity_name">Seen sites</string>
+
     <string name="unesco_moto">Building Peace in the minds of men and women</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -10,6 +12,7 @@
     <string name="world_map">World Map</string>
     <string name="title_activity_site_view">siteView</string>
 
+    <string name="stats">Stastistics</string>
     <string name="seen_sites">Seen</string>
     <string name="liked_sites">Liked</string>
 

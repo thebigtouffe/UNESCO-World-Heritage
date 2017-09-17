@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".countryList"
             android:label="@string/app_name"
@@ -19,9 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".siteList"
             android:launchMode="singleTop" />
+
         <activity
             android:name=".siteView"
             android:label="@string/title_activity_site_view"
@@ -32,12 +35,14 @@
                 android:value="fr.thebigtouffe.unescoworldheritage.siteList" />
         </activity>
 
-        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <activity
+            android:name=".seenSites"
+            android:label="@string/seen_site_activity_name"
+            android:parentActivityName=".countryList">
+        </activity>
 
-        <activity android:name=".seenSites"></activity>
+        <uses-permission android:name="android.permission.INTERNET" />
+
     </application>
 
 </manifest>
