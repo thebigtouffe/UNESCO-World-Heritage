@@ -62,6 +62,17 @@ public class userManager extends SQLiteOpenHelper {
 
     }
 
+    public void removeSiteFromSeen(Site site) {
+        Integer id = site.getNumber();
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        String selection = "site" + " LIKE ?";
+        String[] selectionArgs = { id.toString() };
+        db.delete("user_seen", selection, selectionArgs);
+
+    }
+
     public Boolean getSeenStatus(Integer id) {
         Boolean status = false;
 

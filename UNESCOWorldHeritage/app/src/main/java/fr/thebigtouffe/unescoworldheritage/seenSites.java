@@ -1,8 +1,11 @@
 package fr.thebigtouffe.unescoworldheritage;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -26,7 +29,19 @@ public class seenSites extends AppCompatActivity {
         userManager = new userManager(this);
         unescoDB = new Database(this);
 
+        // Display seen sites
         showSeenSites();
+
+        // Handle click on site
+        mListSeenSites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Site clickedSite = (Site) mListSeenSites.getItemAtPosition(position);
+                Intent intent = new Intent(seenSites.this, siteView.class);
+                intent.putExtra("siteId", ""+clickedSite.getNumber());
+                startActivity(intent);
+            }
+        });
     }
 
     private void showSeenSites() {

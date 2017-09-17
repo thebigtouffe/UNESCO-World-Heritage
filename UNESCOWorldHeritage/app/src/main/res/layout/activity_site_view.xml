@@ -50,12 +50,12 @@
     <include layout="@layout/content_site_view" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/see_button"
+        android:id="@+id/seen_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_eye" />
+        app:srcCompat="@drawable/ic_eye_off" />
 
 </android.support.design.widget.CoordinatorLayout>

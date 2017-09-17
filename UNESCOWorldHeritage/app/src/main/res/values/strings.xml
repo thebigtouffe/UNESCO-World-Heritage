@@ -32,6 +32,7 @@
     <string name="eligibility_criteria">Eligibility criteria</string>
     <string name="criterion">Criterion</string>
     <string name="add_to_seen">Site added to seen list.</string>
+    <string name="remove_from_seen">Site removed from seen list.</string>
     <string name="criteria">Criteria</string>
 
     <string name="copyright_unesco">© UNESCO/World Heritage Centre</string>
