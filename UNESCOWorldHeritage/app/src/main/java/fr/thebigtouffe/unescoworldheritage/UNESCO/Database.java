@@ -19,7 +19,7 @@ public class Database extends SQLiteAssetHelper {
     private Boolean isFrench = Locale.getDefault().getLanguage().equals("fr");
 
     private static final String DATABASE_NAME = "unesco.db";
-    private static final int DATABASE_VERSION = 20170916;
+    private static final int DATABASE_VERSION = 20170917;
 
     private ArrayList<Country> countries = new ArrayList<>();
 
@@ -58,6 +58,8 @@ public class Database extends SQLiteAssetHelper {
                 name = c.getString(c.getColumnIndex("name_fr"));
 
             Integer count = c.getInt(c.getColumnIndex("count"));
+
+            Log.d("country", name);
 
             // Exclude countries without any registered site
             if (count > 0) {
@@ -403,6 +405,20 @@ public class Database extends SQLiteAssetHelper {
         c.close();
 
         return visitedZonesEntries;
+    }
+
+    public Integer getNumberSites() {
+        Integer count = 0;
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT count(*) AS count FROM app_site";
+        Cursor c = db.rawQuery(query, null);
+        if (c.moveToFirst()) {
+            count = c.getInt(c.getColumnIndex("count"));
+        }
+        c.close();
+
+        return count;
     }
 
 }

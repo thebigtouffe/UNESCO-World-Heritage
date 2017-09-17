@@ -7,17 +7,74 @@
     tools:context="fr.thebigtouffe.unescoworldheritage.Statistics">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/count_visited_site_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/count_visited_site_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/you_ve_seen"
+                    android:textSize="16sp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:paddingBottom="5dp"/>
+
+                <LinearLayout
+                    android:id="@+id/count_visited_site_percentage_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_toEndOf="@+id/count_visited_site_title"
+                    android:layout_alignParentBottom="true">
+
+                    <TextView
+                        android:id="@+id/count_visited_site"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="#222"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="top"
+                        android:paddingTop="4dp"
+                        android:text="%"
+                        android:textColor="#444"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/count_visited_site_title_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/of_sites"
+                    android:textSize="16sp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/count_visited_site_percentage_container"
+                    android:paddingBottom="5dp"/>
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/visited_sites_by_zone_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/count_visited_site_container"
                 android:padding="15dp"
                 android:text="@string/visited_sites_by_zone"
                 android:textSize="16sp" />
@@ -32,15 +89,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </fr.thebigtouffe.unescoworldheritage.Utils.SquareRelativeLayout>
-
-
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:padding="15dp"-->
-                <!--android:text="@string/visited_sites_by_zone"-->
-                <!--android:layout_below="@+id/visited_zones_container"-->
-                <!--android:textSize="16sp" />-->
 
         </RelativeLayout>
     </ScrollView>

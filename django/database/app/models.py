@@ -5,22 +5,34 @@ class Zone(models.Model):
 	name = models.CharField(max_length=200, unique=True)
 	name_fr = models.CharField(max_length=200, default="")
 
+	def __str__(self):
+		return self.name
+
 
 class Country(models.Model):
 	name = models.CharField(max_length=200)
 	name_fr = models.CharField(max_length=200)
 	iso = models.CharField(max_length=5, unique=True)
 
+	def __str__(self):
+		return self.name
+
 
 class Category(models.Model):
 	name = models.CharField(unique=True, max_length=200)
 	name_fr = models.CharField(max_length=200)
+
+	def __str__(self):
+		return self.name
 
 
 class Criterion(models.Model):
 	number = models.IntegerField(primary_key=True)
 	description = models.CharField(max_length=200)
 	description_fr = models.CharField(max_length=200)
+
+	def __str__(self):
+		return self.number
 
 
 class Site(models.Model):
@@ -54,4 +66,7 @@ class Site(models.Model):
 	image2_description = models.TextField(default="")
 	image3_url = models.TextField(default="")
 	image3_description = models.TextField(default="")
+
+	def __str__(self):
+		return self.name
 

@@ -31,4 +31,6 @@
     <string name="seen_site_activity_name">Sites visités</string>
     <string name="stats">Mes statistiques</string>
     <string name="visited_sites_by_zone">SITES VISITÉS PAR ZONE</string>
+    <string name="you_ve_seen">"Vous avez vu "</string>
+    <string name="of_sites">" des sites"</string>
 </resources>
