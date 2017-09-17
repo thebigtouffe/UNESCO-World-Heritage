@@ -5,9 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.github.mikephil.charting.data.PieEntry;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import fr.thebigtouffe.unescoworldheritage.userManager;
@@ -23,6 +25,7 @@ public class Database extends SQLiteAssetHelper {
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        setForcedUpgrade();
     }
 
     public ArrayList<Country> getCountries(String option) {
@@ -374,6 +377,32 @@ public class Database extends SQLiteAssetHelper {
         c.close();
 
         return seenSites;
+    }
+
+    public List<PieEntry> getStatsByZone(String seenSites) {
+        List<PieEntry> visitedZonesEntries = new ArrayList<PieEntry>();
+
+        Log.d("Seen",seenSites);
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT app_zone.name, app_zone.name_fr, count(*) AS count " +
+                "FROM app_zone JOIN app_site ON app_zone.id = app_site.zone_id " +
+                "WHERE app_site.number IN " + seenSites + " " +
+                "GROUP BY app_zone.name";
+        Cursor c = db.rawQuery(query, null);
+
+        while (c.moveToNext()) {
+            String name = c.getString(c.getColumnIndex("name"));
+            if (isFrench)
+                name = c.getString(c.getColumnIndex("name_fr"));
+
+            Integer siteSeenCount = c.getInt(c.getColumnIndex("count"));
+
+            visitedZonesEntries.add(new PieEntry((float) siteSeenCount, name));
+        }
+        c.close();
+
+        return visitedZonesEntries;
     }
 
 }

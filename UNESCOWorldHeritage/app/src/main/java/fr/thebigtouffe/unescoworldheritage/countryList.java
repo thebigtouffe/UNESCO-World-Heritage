@@ -133,10 +133,13 @@ public class countryList extends AppCompatActivity
         if (id == R.id.nav_seen) {
             Intent intent = new Intent(countryList.this, seenSites.class);
             startActivity(intent);
+        } else if (id == R.id.nav_stats) {
+            Intent intent = new Intent(countryList.this, Statistics.class);
+            startActivity(intent);
         }
 
         // Handle click on region
-        if (id == R.id.nav_africa) {
+        else if (id == R.id.nav_africa) {
             isDefaultView = false;
             populateCountryListView("africa");
         } else if (id == R.id.nav_arab) {

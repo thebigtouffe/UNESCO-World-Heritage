@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <uses-permission android:name="android.permission.INTERNET" />
+
+
         <activity
             android:name=".countryList"
             android:label="@string/app_name"
@@ -24,7 +27,6 @@
         <activity
             android:name=".siteList"
             android:launchMode="singleTop" />
-
         <activity
             android:name=".siteView"
             android:label="@string/title_activity_site_view"
@@ -34,14 +36,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.thebigtouffe.unescoworldheritage.siteList" />
         </activity>
-
         <activity
             android:name=".seenSites"
             android:label="@string/seen_site_activity_name"
+            android:parentActivityName=".countryList"></activity>
+
+        <activity android:name=".Statistics"
+            android:label="@string/stats"
             android:parentActivityName=".countryList">
         </activity>
-
-        <uses-permission android:name="android.permission.INTERNET" />
 
     </application>
 

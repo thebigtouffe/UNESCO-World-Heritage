@@ -27,4 +27,8 @@
     <string name="eligibility_criteria">Critères d\'admissibilité</string>
     <string name="copyright_unesco">© UNESCO/Centre du Patrimoine mondial</string>
     <string name="random_site">Site au hasard</string>
+    <string name="remove_from_seen">Retirer des sites visités</string>
+    <string name="seen_site_activity_name">Sites visités</string>
+    <string name="stats">Mes statistiques</string>
+    <string name="visited_sites_by_zone">SITES VISITÉS PAR ZONE</string>
 </resources>

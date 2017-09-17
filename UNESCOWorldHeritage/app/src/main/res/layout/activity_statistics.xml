@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.thebigtouffe.unescoworldheritage.Statistics">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/visited_sites_by_zone_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/visited_sites_by_zone"
+                android:textSize="16sp" />
+
+            <fr.thebigtouffe.unescoworldheritage.Utils.SquareRelativeLayout
+                android:id="@+id/visited_zones_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/visited_sites_by_zone_title">
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/visited_zones"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </fr.thebigtouffe.unescoworldheritage.Utils.SquareRelativeLayout>
+
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="15dp"-->
+                <!--android:text="@string/visited_sites_by_zone"-->
+                <!--android:layout_below="@+id/visited_zones_container"-->
+                <!--android:textSize="16sp" />-->
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

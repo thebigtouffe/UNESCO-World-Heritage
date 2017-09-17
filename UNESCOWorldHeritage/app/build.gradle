@@ -32,5 +32,6 @@ dependencies {
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     compile 'org.osmdroid:osmdroid-android:5.6.5@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     testCompile 'junit:junit:4.12'
 }
