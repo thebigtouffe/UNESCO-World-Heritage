@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -72,9 +71,7 @@ public class Search extends AppCompatActivity {
 
     private void searchCountries(String query) {
 
-        Log.d("query", query);
         ArrayList<Country> results = unescoDB.searchCountry(query);
-        Log.d("results", results.toString());
 
         // Truncate list of countries
         ArrayList<Country> resultsTruncated = new ArrayList<>();
@@ -94,9 +91,7 @@ public class Search extends AppCompatActivity {
 
     private void searchSites(String query) {
 
-        Log.d("query", query);
         ArrayList<Site> results = unescoDB.searchSite(query);
-        Log.d("results", results.toString());
 
         if (results.size() > 0) {
             View siteResultsContainer = findViewById(R.id.site_results);

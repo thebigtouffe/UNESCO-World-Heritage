@@ -20,15 +20,32 @@
                 android:id="@+id/country_results_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Countries"
-                android:padding="12dp"
+                android:text="@string/countries"
+                android:paddingTop="12dp"
+                android:paddingLeft="16dp"
                 android:textSize="16sp"/>
+
+            <RelativeLayout
+                android:id="@+id/country_results_separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/country_results_title">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="@android:color/darker_gray"/>
+
+            </RelativeLayout>
 
             <ListView
                 android:id="@+id/country_results_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/country_results_title"
+                android:layout_below="@+id/country_results_separator"
                 android:clickable="true"/>
         </RelativeLayout>
 
@@ -43,16 +60,33 @@
                 android:id="@+id/site_results_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sites"
-                android:padding="12dp"
+                android:text="@string/sites"
+                android:paddingTop="12dp"
+                android:paddingLeft="16dp"
                 android:textSize="16sp"/>
+
+            <RelativeLayout
+                android:id="@+id/site_results_separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/site_results_title">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="@android:color/darker_gray"/>
+
+            </RelativeLayout>
 
             <ListView
                 android:id="@+id/site_results_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/site_results_title"
-                android:clickable="true"/>
+                android:layout_below="@+id/site_results_separator"
+                android:clickable="true" />
 
         </RelativeLayout>
     </RelativeLayout>

@@ -52,9 +52,7 @@ public class seenSites extends AppCompatActivity {
         String sqlList = userManager.getSeenSitesIDs().toString();
         sqlList = sqlList.replace("[","(").replace("]",")");
 
-        Log.d("sql", sqlList);
         ArrayList<Site> seenSites = unescoDB.getSeenSites(sqlList);
-        Log.d("sites", seenSites.toString());
 
         mListSeenSites = (ListView) findViewById(R.id.listSeenSites);
         final siteRowAdapter adapter = new siteRowAdapter(seenSites.this, seenSites);

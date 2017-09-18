@@ -43,7 +43,8 @@
             android:label="@string/stats"
             android:parentActivityName=".countryList"></activity>
 
-        <activity android:name=".Search">
+        <activity android:name=".Search"
+            android:label="@string/search">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

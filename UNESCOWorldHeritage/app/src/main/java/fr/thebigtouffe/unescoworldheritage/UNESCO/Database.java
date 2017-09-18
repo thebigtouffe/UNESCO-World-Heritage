@@ -3,7 +3,6 @@ package fr.thebigtouffe.unescoworldheritage.UNESCO;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.github.mikephil.charting.data.PieEntry;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
@@ -11,8 +10,6 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import fr.thebigtouffe.unescoworldheritage.userManager;
 
 public class Database extends SQLiteAssetHelper {
 
@@ -61,8 +58,6 @@ public class Database extends SQLiteAssetHelper {
                 name = c.getString(c.getColumnIndex("name_fr"));
 
             Integer count = c.getInt(c.getColumnIndex("count"));
-
-            Log.d("country", name);
 
             // Exclude countries without any registered site
             if (count > 0) {
@@ -387,8 +382,6 @@ public class Database extends SQLiteAssetHelper {
     public List<PieEntry> getStatsByZone(String seenSites) {
         List<PieEntry> visitedZonesEntries = new ArrayList<PieEntry>();
 
-        Log.d("Seen",seenSites);
-
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT app_zone.name, app_zone.name_fr, count(*) AS count " +
                 "FROM app_zone JOIN app_site ON app_zone.id = app_site.zone_id " +
@@ -449,9 +442,11 @@ public class Database extends SQLiteAssetHelper {
         }
         c.close();
 
-        setNumberSitesByCountry("Cultural");
-        setNumberSitesByCountry("Natural");
-        setNumberSitesByCountry("Mixed");
+        if (countries.size() > 0) {
+            setNumberSitesByCountry("Cultural");
+            setNumberSitesByCountry("Natural");
+            setNumberSitesByCountry("Mixed");
+        }
 
         return removeCountriesWithNoSites(countries);
     }

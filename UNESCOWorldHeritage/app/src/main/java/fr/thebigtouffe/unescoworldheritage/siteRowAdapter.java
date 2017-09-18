@@ -3,7 +3,6 @@ package fr.thebigtouffe.unescoworldheritage;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ public class siteRowAdapter extends ArrayAdapter<Site>  {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         String activityName = getContext().getClass().getSimpleName();
-        Log.d("activity", activityName);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.site_row,parent, false);
@@ -52,7 +50,6 @@ public class siteRowAdapter extends ArrayAdapter<Site>  {
 
 
         byte[] thumbArray = Base64.decode(site.getThumb() , Base64.DEFAULT);
-        Log.d("image", ""+thumbArray.length);
         viewHolder.thumb.setImageBitmap(BitmapFactory.decodeByteArray(thumbArray, 0, thumbArray.length));
 
         return convertView;

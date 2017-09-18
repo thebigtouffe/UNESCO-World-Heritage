@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.SubMenu;
 import android.view.View;
@@ -113,7 +112,6 @@ public class countryList extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("button", "pressed");
 
                 MenuItem searchMenuItem = menu.findItem( R.id.menu_search ); // get my MenuItem with placeholder submenu
                 searchMenuItem.expandActionView(); // Expand the search menu item in order to show by default the query
