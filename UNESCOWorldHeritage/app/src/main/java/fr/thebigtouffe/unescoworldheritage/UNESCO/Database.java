@@ -19,7 +19,7 @@ public class Database extends SQLiteAssetHelper {
     private Boolean isFrench = Locale.getDefault().getLanguage().equals("fr");
 
     private static final String DATABASE_NAME = "unesco.db";
-    private static final int DATABASE_VERSION = 20170917;
+    private static final int DATABASE_VERSION = 20170918;
 
     private ArrayList<Country> countries = new ArrayList<>();
 
@@ -419,6 +419,67 @@ public class Database extends SQLiteAssetHelper {
         c.close();
 
         return count;
+    }
+
+    public ArrayList<Country> searchCountry(String userQuery) {
+
+        ArrayList<Country> countries = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT id, name, name_fr, iso FROM app_country ";
+
+        if (isFrench)
+            query += "WHERE searchable_name_fr LIKE ?";
+        else
+            query += "WHERE searchable_name LIKE ?";
+
+        Cursor c = db.rawQuery(query, new String[] {"%"+userQuery+"%"});
+        while (c.moveToNext()) {
+            int id = c.getInt(c.getColumnIndex("id"));
+            String name = c.getString(c.getColumnIndex("name"));
+            String iso = c.getString(c.getColumnIndex("iso"));
+
+            if (isFrench)
+                name = c.getString(c.getColumnIndex("name_fr"));
+
+            countries.add(new Country(id, name, iso));
+        }
+        c.close();
+
+        return countries;
+
+    }
+
+
+    public ArrayList<Site> searchSite(String userQuery) {
+
+        ArrayList<Site> sites = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT number, name, name_fr, thumb FROM app_site ";
+
+        if (isFrench)
+            query += "WHERE searchable_name_fr LIKE ?";
+        else
+            query += "WHERE searchable_name LIKE ?";
+
+        Cursor c = db.rawQuery(query, new String[] {"%"+userQuery+"%"});
+        while (c.moveToNext()) {
+            int number = c.getInt(c.getColumnIndex("number"));
+            String name = c.getString(c.getColumnIndex("name"));
+            byte[] thumb = c.getBlob(c.getColumnIndex("thumb"));
+
+            if (isFrench)
+                name = c.getString(c.getColumnIndex("name_fr"));
+
+            Site site = new Site(number, name);
+            site.setThumb(thumb);
+            sites.add(site);
+        }
+        c.close();
+
+        return sites;
+
     }
 
 }

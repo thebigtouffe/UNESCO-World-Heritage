@@ -43,4 +43,6 @@
     <string name="visited_sites_by_zone">VISITED SITES BY ZONE</string>
     <string name="you_ve_seen">You\'ve seen </string>
     <string name="of_sites"> of sites</string>
+
+    <string name="search_hint">Search for a site, a country</string>
 </resources>

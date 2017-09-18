@@ -14,6 +14,9 @@ class Country(models.Model):
 	name_fr = models.CharField(max_length=200)
 	iso = models.CharField(max_length=5, unique=True)
 
+	searchable_name = models.CharField(max_length=200, default="")
+	searchable_name_fr = models.CharField(max_length=200, default="")
+
 	def __str__(self):
 		return self.name
 
@@ -66,6 +69,9 @@ class Site(models.Model):
 	image2_description = models.TextField(default="")
 	image3_url = models.TextField(default="")
 	image3_description = models.TextField(default="")
+
+	searchable_name = models.CharField(max_length=200, default="")
+	searchable_name_fr = models.CharField(max_length=200, default="")
 
 	def __str__(self):
 		return self.name

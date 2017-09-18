@@ -3,11 +3,14 @@ package fr.thebigtouffe.unescoworldheritage;
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Country;
 import fr.thebigtouffe.unescoworldheritage.UNESCO.Database;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -36,15 +39,6 @@ public class countryList extends AppCompatActivity
         setContentView(R.layout.activity_country_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.search_button);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -102,9 +96,30 @@ public class countryList extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.list, menu);
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.search_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("button", "pressed");
+
+                MenuItem searchMenuItem = menu.findItem( R.id.menu_search ); // get my MenuItem with placeholder submenu
+                searchMenuItem.expandActionView(); // Expand the search menu item in order to show by default the query
+            }
+        });
+
         return true;
     }
 
