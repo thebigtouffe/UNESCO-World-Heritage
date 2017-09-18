@@ -29,6 +29,9 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public ArrayList<Country> getCountries(String option) {
+
+        countries = new ArrayList<>();
+
         SQLiteDatabase db = getReadableDatabase();
 
         String query = "SELECT app_country.id, app_country.name, app_country.name_fr, " +
@@ -423,7 +426,7 @@ public class Database extends SQLiteAssetHelper {
 
     public ArrayList<Country> searchCountry(String userQuery) {
 
-        ArrayList<Country> countries = new ArrayList<>();
+        countries = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT id, name, name_fr, iso FROM app_country ";
@@ -446,10 +449,28 @@ public class Database extends SQLiteAssetHelper {
         }
         c.close();
 
-        return countries;
+        setNumberSitesByCountry("Cultural");
+        setNumberSitesByCountry("Natural");
+        setNumberSitesByCountry("Mixed");
 
+        return removeCountriesWithNoSites(countries);
     }
 
+    public ArrayList<Country> removeCountriesWithNoSites(ArrayList<Country> countries) {
+
+        // Remove countries with no sites
+        ArrayList<Country> countriesTruncated = new ArrayList<>();
+        for (int i=0;i<countries.size();i++) {
+            Country country = countries.get(i);
+            if (country.getNumberCulturalSites() > 0 ||
+                    country.getNumberMixedSites() > 0 ||
+                    country.getNumberNaturalSites() > 0) {
+                countriesTruncated.add(country);
+            }
+        }
+        return countriesTruncated;
+
+    }
 
     public ArrayList<Site> searchSite(String userQuery) {
 
@@ -474,6 +495,7 @@ public class Database extends SQLiteAssetHelper {
 
             Site site = new Site(number, name);
             site.setThumb(thumb);
+            site.setCountries(getCountriesBySiteID(number));
             sites.add(site);
         }
         c.close();
@@ -481,5 +503,7 @@ public class Database extends SQLiteAssetHelper {
         return sites;
 
     }
+
+
 
 }

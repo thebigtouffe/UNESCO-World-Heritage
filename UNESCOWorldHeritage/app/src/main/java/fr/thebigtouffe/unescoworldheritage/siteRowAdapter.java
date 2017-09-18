@@ -47,7 +47,7 @@ public class siteRowAdapter extends ArrayAdapter<Site>  {
         if (activityName.equals("siteList"))
             viewHolder.subtext.setText(site.getCategory().getName());
 
-        if (activityName.equals("seenSites"))
+        if (activityName.equals("seenSites") || activityName.equals("Search"))
             viewHolder.subtext.setText(site.getCountries().toString().replace("[","").replace("]",""));
 
 
