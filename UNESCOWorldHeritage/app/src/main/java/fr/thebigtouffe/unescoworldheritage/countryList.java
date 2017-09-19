@@ -1,7 +1,7 @@
-package fr.thebigtouffe.unescoworldheritage;
+package fr.thebigtouffe.heritage;
 
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Country;
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Database;
+import fr.thebigtouffe.heritage.UNESCO.Country;
+import fr.thebigtouffe.heritage.UNESCO.Database;
 
 import android.app.SearchManager;
 import android.content.Context;

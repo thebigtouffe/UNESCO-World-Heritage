@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage.UNESCO;
+package fr.thebigtouffe.heritage.UNESCO;
 
 public class Category {
     private String name;

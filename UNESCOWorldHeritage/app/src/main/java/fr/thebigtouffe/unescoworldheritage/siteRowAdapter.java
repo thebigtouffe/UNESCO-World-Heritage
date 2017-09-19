@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage;
+package fr.thebigtouffe.heritage;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Site;
+import fr.thebigtouffe.heritage.UNESCO.Site;
 
 public class siteRowAdapter extends ArrayAdapter<Site>  {
 

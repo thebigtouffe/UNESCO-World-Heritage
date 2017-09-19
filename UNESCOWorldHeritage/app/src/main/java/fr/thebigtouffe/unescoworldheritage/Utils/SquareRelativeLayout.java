@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage.Utils;
+package fr.thebigtouffe.heritage.Utils;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="fr.thebigtouffe.unescoworldheritage.siteView"
+    tools:context="fr.thebigtouffe.heritage.siteView"
     tools:showIn="@layout/activity_site_view">
 
     <RelativeLayout

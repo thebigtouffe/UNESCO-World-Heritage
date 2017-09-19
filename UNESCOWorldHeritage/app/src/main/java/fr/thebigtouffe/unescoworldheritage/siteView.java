@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage;
+package fr.thebigtouffe.heritage;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -21,11 +21,11 @@ import org.osmdroid.views.MapView;
 
 import java.util.ArrayList;
 
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Criterion;
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Database;
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Site;
-import fr.thebigtouffe.unescoworldheritage.Utils.Map;
-import fr.thebigtouffe.unescoworldheritage.Utils.RomanNumber;
+import fr.thebigtouffe.heritage.UNESCO.Criterion;
+import fr.thebigtouffe.heritage.UNESCO.Database;
+import fr.thebigtouffe.heritage.UNESCO.Site;
+import fr.thebigtouffe.heritage.Utils.Map;
+import fr.thebigtouffe.heritage.Utils.RomanNumber;
 
 public class siteView extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage.UNESCO;
+package fr.thebigtouffe.heritage.UNESCO;
 
 import android.content.Context;
 import android.database.Cursor;

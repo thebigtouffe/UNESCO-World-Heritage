@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage.UNESCO;
+package fr.thebigtouffe.heritage.UNESCO;
 
 public class Criterion {
     private int number;

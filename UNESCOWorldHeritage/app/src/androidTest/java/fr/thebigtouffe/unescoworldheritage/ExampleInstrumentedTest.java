@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage;
+package fr.thebigtouffe.heritage;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("fr.thebigtouffe.unescoworldheritage", appContext.getPackageName());
+        assertEquals("fr.thebigtouffe.heritage", appContext.getPackageName());
     }
 }

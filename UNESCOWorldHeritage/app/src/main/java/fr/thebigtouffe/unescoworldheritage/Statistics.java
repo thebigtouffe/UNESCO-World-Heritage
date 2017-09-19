@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage;
+package fr.thebigtouffe.heritage;
 
 import android.animation.ValueAnimator;
 import android.graphics.Color;
@@ -15,7 +15,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Database;
+import fr.thebigtouffe.heritage.UNESCO.Database;
 
 public class Statistics extends AppCompatActivity {
 

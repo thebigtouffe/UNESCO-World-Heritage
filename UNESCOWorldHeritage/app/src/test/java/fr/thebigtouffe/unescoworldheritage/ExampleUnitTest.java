@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage;
+package fr.thebigtouffe.heritage;
 
 import org.junit.Test;
 

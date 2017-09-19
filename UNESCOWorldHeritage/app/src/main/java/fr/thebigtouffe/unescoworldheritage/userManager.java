@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage;
+package fr.thebigtouffe.heritage;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Site;
+import fr.thebigtouffe.heritage.UNESCO.Site;
 
 public class userManager extends SQLiteOpenHelper {
 

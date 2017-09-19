@@ -37,4 +37,5 @@
     <string name="sites">Sites</string>
     <string name="search_hint">Un site, un pays…</string>
     <string name="search">Recherche</string>
+    <string name="title_activity_site_view">siteView</string>
 </resources>

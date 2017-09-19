@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage.Utils;
+package fr.thebigtouffe.heritage.Utils;
 
 import android.app.Activity;
 import android.util.Log;

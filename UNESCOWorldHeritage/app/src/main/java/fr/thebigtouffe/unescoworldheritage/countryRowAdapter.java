@@ -1,4 +1,4 @@
-package fr.thebigtouffe.unescoworldheritage;
+package fr.thebigtouffe.heritage;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fr.thebigtouffe.unescoworldheritage.UNESCO.Country;
+import fr.thebigtouffe.heritage.UNESCO.Country;
 
 public class countryRowAdapter extends ArrayAdapter<Country>  {
 

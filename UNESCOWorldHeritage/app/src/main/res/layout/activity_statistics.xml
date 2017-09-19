@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.thebigtouffe.unescoworldheritage.Statistics">
+    tools:context="fr.thebigtouffe.heritage.Statistics">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                 android:text="@string/visited_sites_by_zone"
                 android:textSize="16sp" />
 
-            <fr.thebigtouffe.unescoworldheritage.Utils.SquareRelativeLayout
+            <fr.thebigtouffe.heritage.Utils.SquareRelativeLayout
                 android:id="@+id/visited_zones_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -88,7 +88,7 @@
                     android:id="@+id/visited_zones"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
-            </fr.thebigtouffe.unescoworldheritage.Utils.SquareRelativeLayout>
+            </fr.thebigtouffe.heritage.Utils.SquareRelativeLayout>
 
         </RelativeLayout>
     </ScrollView>
